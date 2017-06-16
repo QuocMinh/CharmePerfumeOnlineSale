@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sale.charme.model.LoaiMatHang;
+import com.sale.charme.model.ProductType;
 import com.sale.charme.model.Pager;
-import com.sale.charme.repository.LoaiMatHangRepository;
+import com.sale.charme.repository.ProductTypeRepository;
 
 @Controller
-public class LoaiMatHangController {
+public class ProductTypeController {
 	
 	private static final int BUTTONS_TO_SHOW = 5;
 	private static final int INITIAL_PAGE = 0;
@@ -27,7 +27,7 @@ public class LoaiMatHangController {
 	private static final int[] PAGE_SIZES = { 5, 10, 20 };
 	
 	@Autowired
-	LoaiMatHangRepository loaiMHRepo;
+	ProductTypeRepository loaiMHRepo;
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -44,22 +44,22 @@ public class LoaiMatHangController {
 		// param. decreased by 1.
 		int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 		
-		Page<LoaiMatHang> loaiMHs = loaiMHRepo.findAllPageable(new PageRequest(evalPage, evalPageSize));
+		Page<ProductType> loaiMHs = loaiMHRepo.findAllPageable(new PageRequest(evalPage, evalPageSize));
 		Pager pager = new Pager(loaiMHs.getTotalPages(), loaiMHs.getNumber(), BUTTONS_TO_SHOW);
 		
 		model.addAttribute("loaiMHs", loaiMHs);
-		model.addAttribute("loaiMHNew", new LoaiMatHang());
+		model.addAttribute("loaiMHNew", new ProductType());
 		model.addAttribute("selectedPageSize", evalPageSize);
 		model.addAttribute("pageSizes", PAGE_SIZES);
 		model.addAttribute("pager", pager);
 		
-		loaiMHRepo.printHello(new LoaiMatHang());
+		loaiMHRepo.printHello(new ProductType());
 		
 		return "loaimathang";
 	}
 	
 	@PostMapping("/update-product-type")
-	public String handleUpdate(@ModelAttribute LoaiMatHang loaiMH) {
+	public String handleUpdate(@ModelAttribute ProductType loaiMH) {
 		
 		loaiMHRepo.save(loaiMH);
 		

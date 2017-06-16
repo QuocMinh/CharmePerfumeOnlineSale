@@ -9,7 +9,7 @@ import com.sale.charme.model.Product;
 import com.sale.charme.repository.ProductRepository;
 
 @Controller
-public class MatHangController {
+public class ProductController {
 	
 	@Autowired
 	ProductRepository productRepository;
