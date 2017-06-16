@@ -2,7 +2,7 @@ package com.sale.charme.model;
 
 import org.springframework.data.annotation.Id;
 
-public class LoaiMatHang {
+public class ProductType {
 	
 	@Id
 	private String maLoai;
@@ -10,11 +10,11 @@ public class LoaiMatHang {
 	private String tenLoai;
 	private String moTa;
 	
-	public LoaiMatHang() {
+	public ProductType() {
 		super();
 	}
 
-	public LoaiMatHang(String maLoai, String tenLoai, String moTa) {
+	public ProductType(String maLoai, String tenLoai, String moTa) {
 		super();
 		this.maLoai = maLoai;
 		this.tenLoai = tenLoai;
