@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Login page</title>
+        <!-- Bootstrap Core CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <style type="text/css">
+        	html, body, .container-table {
+			    height: 100%;
+			    background-color: #222;
+			}
+			.container-table {
+			    display: table;
+			}
+			.vertical-center-row {
+			    display: table-cell;
+			    vertical-align: middle;
+			}
+			.form-group{
+			    text-align: left;
+			}
+			#btnLogin {
+			    width: 100%;
+			    height: 30px;
+			}
+			.panel-heading {
+			    padding: 5px 15px;
+			}
+			.panel-footer {
+				padding: 1px 15px;
+				color: #A0A0A0;
+			}
+			.profile-img {
+				width: 96px;
+				height: 96px;
+				margin: 0 auto 10px;
+				display: block;
+				-moz-border-radius: 50%;
+				-webkit-border-radius: 50%;
+				border-radius: 50%;
+			}
+			.checkbox label{
+			    color: #A0A0A0;
+			}
+			.error {
+				color: red;
+			}
+			.success {
+			}
+        </style>
+    </head>
+    <body>
+        <div class="container container-table">
+            <div class="row vertical-center-row">
+                <div class="text-center col-md-4 col-md-offset-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">ĐĂNG NHẬP</div>
+                        <div class="panel-body">
+                            <form th:action="@{/login}" method="POST">
+    							<fieldset>
+    								<div class="row">
+    									<div class="center-block">
+    										<img class="profile-img"
+    											src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"/>
+    									</div>
+    								</div>
+    								<div class="row">
+    									<p th:if="${param.error}" class="error">Invalid email or password</p>
+        								<p th:if="${param.logout}" class="success">You have been logged out</p>
+    									<div class="col-sm-12 col-md-10  col-md-offset-1 ">
+    										<div class="form-group">
+    											<div class="input-group">
+    												<span class="input-group-addon">
+    													<i class="glyphicon glyphicon-user"></i>
+    												</span>
+    												<input class="form-control" placeholder="Username / Email" 
+    													   type="text" autofocus="autofocus"
+    													   id="username" name="username"
+    													   required="required"/>
+    											</div>
+    										</div>
+    										<div class="form-group">
+    											<div class="input-group">
+    												<span class="input-group-addon">
+    													<i class="glyphicon glyphicon-lock"></i>
+    												</span>
+    												<input class="form-control" placeholder="Password" 
+    													   id="password" name="password" type="password"
+    													   required="required"/>
+    											</div>
+    										</div>
+                                            <div class="checkbox" align="left">
+                                               <label><input type="checkbox" value="remember"/>Ghi nhớ đăng nhập</label>
+                                            </div>
+    										<div class="form-group">
+    											<input type="submit" class="btn btn-lg btn-primary btn-block" value="Đăng nhập"/>
+    										</div>
+    									</div>
+    								</div>
+    							</fieldset>
+    						</form>
+                        </div>
+                        <div class="panel-footer ">
+    						Bạn chưa có tài khoản? <a href="#" onClick=""> Đăng ký tại đây </a>
+    					</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,40 @@
+.row-eq-height {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+.required {
+	color: red;
+}
+
+#tbl-loaihanghoa thead th {
+    background: #ccc;
+    border: none;
+}
+
+.clickable:hover {
+    background-color: #efefef;
+    cursor: pointer;
+}
+
+.pagination-centered {
+	text-align: center;
+}
+
+.disabled {
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+.pointer-disabled {
+	pointer-events: none;
+}
+.pagination {
+	padding: 0;
+	margin: 0;
+}
+#itemId {
+	display: none;
+}

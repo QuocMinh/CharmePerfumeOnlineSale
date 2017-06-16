@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layout/main-layout-v1">
+<head>
+	<meta charset="UTF-8"/>
+    <title>Danh sách các loại mặt hàng</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css"/>
+</head>
+<body>
+	<h1 layout:fragment="header">
+		QUẢN LÝ LOẠI MẶT HÀNG
+	</h1>
+	
+	<ol layout:fragment="link">
+		<li>
+            <a th:href="@{/list-product-type}">
+            	<i class="glyphicon glyphicon-barcode"></i> Quản lý loại mặt hàng
+            </a>
+        </li>
+	</ol>
+
+	<section layout:fragment="content">
+		Ten sp: <span th:text="${product.productName}"></span> <br/>
+		Loai gia: 
+		<select id="unitPriceType" onchange="setPrice()">
+			<option value="">-- Chon loai gia --</option>
+			<option th:each="unitPrice : ${product.unitPrices}" th:value="${unitPrice.price}" th:text="${unitPrice.decription}"></option>
+		</select>
+		<br/>
+		Gia ban: <input type="text" id="price"/> VND
+	</section>
+	
+	<script th:src="@{/js/loaimathang.js}" charset="utf-8"></script>
+</body>
+</html>
