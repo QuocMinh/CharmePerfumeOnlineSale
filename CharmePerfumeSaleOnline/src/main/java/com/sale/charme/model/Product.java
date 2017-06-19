@@ -6,17 +6,19 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection="products")
+@Document
 public class Product {
 	
 	@Id
 	private String productId;
 	
 	private String productName;
-	private String category;
 	private String unit;
 	private float volume;
 	private String describe;
+	
+	@DBRef
+	private ProductType productType;
 	
 	@DBRef
 	private List<UnitPrice> unitPrices;
@@ -25,24 +27,24 @@ public class Product {
 		super();
 	}
 
-	public Product(String productId, String productName, String category,
-			String unit, float volume, String describe,
-			List<UnitPrice> unitPrices) {
+	public Product(String productId, String productName,
+			ProductType productType, String unit, float volume,
+			String describe, List<UnitPrice> unitPrices) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
-		this.category = category;
+		this.productType = productType;
 		this.unit = unit;
 		this.volume = volume;
 		this.describe = describe;
 		this.unitPrices = unitPrices;
 	}
 
-	public Product(String productName, String category, String unit,
+	public Product(String productName, ProductType productType, String unit,
 			float volume, String describe, List<UnitPrice> unitPrices) {
 		super();
 		this.productName = productName;
-		this.category = category;
+		this.productType = productType;
 		this.unit = unit;
 		this.volume = volume;
 		this.describe = describe;
@@ -65,12 +67,12 @@ public class Product {
 		this.productName = productName;
 	}
 
-	public String getCategory() {
-		return category;
+	public ProductType getProductType() {
+		return productType;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void setProductType(ProductType productType) {
+		this.productType = productType;
 	}
 
 	public String getUnit() {
@@ -108,8 +110,8 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Product [productId=" + productId + ", productName="
-				+ productName + ", category=" + category + ", unit=" + unit
-				+ ", volume=" + volume + ", describe=" + describe
+				+ productName + ", productType=" + productType + ", unit="
+				+ unit + ", volume=" + volume + ", describe=" + describe
 				+ ", unitPrices=" + unitPrices + "]";
 	}
 

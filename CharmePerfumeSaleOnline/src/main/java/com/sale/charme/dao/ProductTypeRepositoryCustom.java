@@ -9,6 +9,4 @@ public interface ProductTypeRepositoryCustom {
 	
 	Page<ProductType> findAllPageable(Pageable pageable);
 	
-	public ProductType printHello(ProductType loaiMH);
-
 }
