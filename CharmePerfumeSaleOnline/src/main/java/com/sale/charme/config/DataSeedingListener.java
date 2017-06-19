@@ -12,12 +12,14 @@ import org.springframework.stereotype.Component;
 import com.sale.charme.model.Customer;
 import com.sale.charme.model.CustomerType;
 import com.sale.charme.model.Product;
+import com.sale.charme.model.ProductType;
 import com.sale.charme.model.Role;
 import com.sale.charme.model.UnitPrice;
 import com.sale.charme.model.User;
 import com.sale.charme.repository.CustomerRepository;
 import com.sale.charme.repository.CustomerTypeRepository;
 import com.sale.charme.repository.ProductRepository;
+import com.sale.charme.repository.ProductTypeRepository;
 import com.sale.charme.repository.RoleRepository;
 import com.sale.charme.repository.UnitPriceRepository;
 import com.sale.charme.repository.UserRepository;
@@ -46,6 +48,9 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 	
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private ProductTypeRepository productTypeRepository ;
 
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent arg0) {
@@ -134,9 +139,11 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			product.setProductName("So sexy 25ml");
 			List<UnitPrice> unitPrices = unitPriceRepository.findAll();
 			product.setUnitPrices(unitPrices);
+			ProductType productType = productTypeRepository.findByMaLoai("NAM");
+			product.setProductType(productType);
 			
 			productRepository.save(product);
+			
 		}
 	}
-
 }

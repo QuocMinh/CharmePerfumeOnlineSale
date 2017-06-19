@@ -14,17 +14,11 @@ public class ProductTypeRepositoryImpl implements ProductTypeRepositoryCustom {
 	@Autowired
 	MongoTemplate template;
 	@Autowired
-	ProductTypeRepository loaiMHRepo;
+	ProductTypeRepository productTypeRepo;
 	
 	@Override
-	public ProductType printHello(ProductType loaiMH) {
-		
-		return null;
-	}
-
-	@Override
 	public Page<ProductType> findAllPageable(Pageable pageable) {
-		return loaiMHRepo.findAll(pageable);
+		return productTypeRepo.findAll(pageable);
 	}
 
 }

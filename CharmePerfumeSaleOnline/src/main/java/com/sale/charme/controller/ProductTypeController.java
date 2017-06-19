@@ -53,8 +53,6 @@ public class ProductTypeController {
 		model.addAttribute("pageSizes", PAGE_SIZES);
 		model.addAttribute("pager", pager);
 		
-		loaiMHRepo.printHello(new ProductType());
-		
 		return "loaimathang";
 	}
 	
