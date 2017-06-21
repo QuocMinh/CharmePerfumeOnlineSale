@@ -38,3 +38,18 @@
 #itemId {
 	display: none;
 }
+.glyphicon-edit {
+	color: green;
+}
+.glyphicon-edit:HOVER {
+	color: #009f00;
+}
+.glyphicon-remove {
+	color: #ca0000;
+}
+.glyphicon-remove:hover {
+	color: #f00000;
+}
+.userInfo {
+	
+}

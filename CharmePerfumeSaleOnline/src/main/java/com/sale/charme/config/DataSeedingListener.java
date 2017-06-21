@@ -9,6 +9,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.sale.charme.model.Address;
 import com.sale.charme.model.Customer;
 import com.sale.charme.model.CustomerType;
 import com.sale.charme.model.Product;
@@ -16,6 +17,7 @@ import com.sale.charme.model.ProductType;
 import com.sale.charme.model.Role;
 import com.sale.charme.model.UnitPrice;
 import com.sale.charme.model.User;
+import com.sale.charme.model.UserDetail;
 import com.sale.charme.repository.CustomerRepository;
 import com.sale.charme.repository.CustomerTypeRepository;
 import com.sale.charme.repository.ProductRepository;
@@ -74,6 +76,14 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			roles.add(roleRepository.findByRoleName(Constant.ROLE_MEMBER));
 			admin.setUserRole(roles);
 			
+			// User Details
+			UserDetail userDetail = new UserDetail();
+			userDetail.setFullName("Chau Quoc Minh");
+			userDetail.setAddress(new Address("37", "Tra Khua", "Long Thanh", "Vinh Loi", "Bac Lieu"));
+			userDetail.setPhone("0123 94 96 986");
+			
+			admin.setUserDetail(userDetail);
+			
 			userRepository.save(admin);
 		}
 		
@@ -85,6 +95,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			List<Role> roles = new ArrayList<Role>();
 			roles.add(roleRepository.findByRoleName(Constant.ROLE_MEMBER));
 			member.setUserRole(roles);
+			member.setUserDetail(new UserDetail());
 			
 			userRepository.save(member);
 		}
@@ -143,7 +154,6 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			product.setProductType(productType);
 			
 			productRepository.save(product);
-			
 		}
 	}
 }

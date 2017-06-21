@@ -29,11 +29,6 @@ public class LoginController {
         return "403";
     }
 	
-	@GetMapping("/admin") 
-    public String admin() {
-        return "admin";
-    }
-	
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();

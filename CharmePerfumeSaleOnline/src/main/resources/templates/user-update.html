@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layout/main-layout-v1">
+<head>
+	<meta charset="UTF-8"/>
+    <title>Quản lý người dùng</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css"/>
+	<!-- Bootstrap Date-Picker Plugin -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+	<!-- Bootstrap Date-Picker Plugin -->
+</head>
+<body>
+	<h1 layout:fragment="header">
+		QUẢN LÝ NGƯỜI DÙNG
+	</h1>
+
+	<ol layout:fragment="link">
+		<li>
+            <a th:href="@{/admin}"><i class="glyphicon glyphicon-equalizer"></i> Quản lý Người dùng</a>
+        </li>
+	</ol>
+
+	<section layout:fragment="content">
+		<div th:if="${param.success}" class="alert alert-success fade in">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>Thành công!</strong> Tài khoản <b th:text="${param.success[0]}"></b> đã được tạo mới.
+		</div>
+		<div th:if="${param.deleted}" class="alert alert-success fade in">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>Thành công!</strong> Đã xóa tài khoản <b th:text="${param.deleted[0]}"></b>.
+		</div>
+		<div th:if="${param.error}" class="alert alert-danger fade in">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>Lỗi!</strong> Tài khoản <b th:text="${param.error[0]}"></b> đã tồn tại!
+		</div>
+		<h2>Cập nhật thông tin người dùng</h2>
+		<hr/>
+		<div class="row">
+		  	<div class="col-sm-2">
+		  		<img th:src="@{\img\photo.jpg.png}" alt="profile image" class="img-rounded img-responsive"/>
+		  	</div>
+		  	<div class="col-sm-10">
+		  		<div class="container-fluid">
+					<form class="form-horizontal" action="index.html" method="post">
+						<div class="form-group">
+						  	<label for="" class="control-label col-sm-3">Tài khoản:</label>
+						  	<div class="col-sm-7">
+						  		<input type="text" class="form-control disabled" id=""
+								th:value="cqminh1995" required="required" />
+						  	</div>
+							<div class="col-sm-2 required"><span>(*)</span></div>
+						</div>
+						<div class="form-group">
+						  	<label for="" class="control-label col-sm-3">Họ tên:</label>
+						  	<div class="col-sm-7">
+						  		<input type="text" class="form-control" id="" required="required" />
+						  	</div>
+							<div class="col-sm-2 required"><span>(*)</span></div>
+						</div>
+						<div class="form-group">
+						  	<label for="" class="control-label col-sm-3">Ngày sinh:</label>
+						  	<div class="col-sm-7">
+						  		<input type="date" class="form-control" id="dob" name="dob" required="required" />
+						  	</div>
+							<div class="col-sm-2 required"><span>(*)</span></div>
+						</div>
+						<div class="form-group">
+						  	<label for="" class="control-label col-sm-3">Giới tính</label>
+						  	<div class="col-sm-7">
+						  		<input type="text" class="form-control" id="" required="required" />
+						  	</div>
+							<div class="col-sm-2 required"><span>(*)</span></div>
+						</div>
+						<div class="form-group">
+						  	<label for="" class="control-label col-sm-3">Số nhà:</label>
+						  	<div class="col-sm-7">
+							  	<input type="text" class="form-control" id="" />
+						  	</div>
+						</div>
+						<div class="form-group">
+						  	<label for="" class="control-label col-sm-3">Đường:</label>
+						  	<div class="col-sm-7">
+							  	<input type="text" class="form-control" id="" />
+						  	</div>
+						</div>
+						<div class="form-group">
+						  	<label for="" class="control-label col-sm-3">Xã / Phường:</label>
+						  	<div class="col-sm-7">
+							  	<input type="text" class="form-control" id="" />
+						  	</div>
+						</div>
+						<div class="form-group">
+						  	<label for="" class="control-label col-sm-3">Huyện / Quận:</label>
+						  	<div class="col-sm-7">
+							  	<input type="text" class="form-control" id="" required="required"/>
+						  	</div>
+							<div class="col-sm-2 required"><span>(*)</span></div>
+						</div>
+						<div class="form-group">
+						  	<label for="" class="control-label col-sm-3">Tỉnh / Thành Phố:</label>
+						  	<div class="col-sm-7">
+							  	<input type="text" class="form-control" id="" required="required"/>
+						  	</div>
+							<div class="col-sm-2 required"><span>(*)</span></div>
+						</div>
+						<div class="form-group">
+						  	<label for="" class="control-label col-sm-3">Số điện thoại:</label>
+						  	<div class="col-sm-7">
+						  		<input type="text" class="form-control" id="" required="required" />
+						  	</div>
+							<div class="col-sm-2 required"><span>(*)</span></div>
+						</div>
+						<div class="form-group">
+						  	<label for="" class="control-label col-sm-3">Địa chỉ email:</label>
+						  	<div class="col-sm-7">
+						  		<input type="email" class="form-control" id="" required="required" />
+						  	</div>
+							<div class="col-sm-2 required"><span>(*)</span></div>
+						</div>
+						<div class="form-group">
+						    <div class="col-sm-offset-3 col-sm-9">
+						      	<button type="submit" class="btn btn-primary">Cập nhật</button>
+								<button type="reset" class="btn btn-warning" id="btnReset">Làm mới</button>
+						    </div>
+						</div>
+					</form>
+		  		</div>
+		  	</div>
+		</div>
+	</section>
+
+
+</body>
+</html>
