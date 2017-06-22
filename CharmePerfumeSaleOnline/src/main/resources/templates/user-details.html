@@ -8,13 +8,16 @@
 	<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css"/>
 </head>
 <body>
-	<h1 layout:fragment="header">
+	<h3 layout:fragment="header">
 		QUẢN LÝ NGƯỜI DÙNG
-	</h1>
+	</h3>
 
 	<ol layout:fragment="link">
 		<li>
-            <a th:href="@{/admin}"><i class="glyphicon glyphicon-equalizer"></i> Quản lý Người dùng</a>
+            <a th:href="@{/admin}"><i class="glyphicon glyphicon-user"></i> Quản lý Người dùng</a>
+        </li>
+        <li>
+            <a th:href="@{/admin}"><i class="glyphicon glyphicon-eye-open"></i> Thông tin Người dùng</a>
         </li>
 	</ol>
 
@@ -31,7 +34,7 @@
 			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 			<strong>Lỗi!</strong> Tài khoản <b th:text="${param.error[0]}"></b> đã tồn tại!
 		</div>
-		<h2>Thông tin người dùng</h2>
+		<h4>Thông tin người dùng</h4>
 		<hr/>
 		<div class="row">
 		  	<div class="col-sm-2">
@@ -72,19 +75,21 @@
 							<td><b>Mật khẩu:</b></td>
 							<td>
 								<span>******</span>
-								<a href="#" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-edit"></i> Change</a>
+								<a href="#" class="btn btn-default btn-xs">
+									<i class="glyphicon glyphicon-edit btn-edit"></i> Change
+								</a>
 							</td>
 						</tr>
 					</table>
 					<a th:href="@{/update-user?username=} + ${user.username}" class="btn btn-default">
-						<i class="glyphicon glyphicon-edit"></i> Cập nhật</a>
+						<i class="glyphicon glyphicon-edit btn-edit"></i> Cập nhật</a>
 					<a th:href="@{/delete-user?username=} + ${user.username}"  class="btn btn-default">
-						<i class="glyphicon glyphicon-remove"></i> Xóa</a>
+						<i class="glyphicon glyphicon-remove btn-remove"></i> Xóa</a>
 		  		</div>
 		  	</div>
 		</div>
 	</section>
 
-	<script th:src="@{/js/loaimathang.js}" charset="utf-8"></script>
+	<span id="menuItem" class="hidden">#user</span>
 </body>
 </html>

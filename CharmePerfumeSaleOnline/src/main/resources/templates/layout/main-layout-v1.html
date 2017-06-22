@@ -61,12 +61,10 @@
                         </a>
                     </li>
                     <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo">
-                        	<i class="glyphicon glyphicon-stats"></i>
-                        	Thống kê
-                        	<i class="caret"></i>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#thongKe">
+                        	<i class="glyphicon glyphicon-stats"></i> Thống kê <i class="caret"></i>
                         </a>
-                        <ul id="demo" class="collapse">
+                        <ul id="#thongKe" class="collapse">
                             <li>
                                 <a href="#"><i class="glyphicon glyphicon-usd"></i> Doanh thu</a>
                             </li>
@@ -75,12 +73,12 @@
                             </li>
                         </ul>
                     </li>
-                    <li id="product-type">
+                    <li id="productType">
                         <a th:href="@{/list-product-type}">
-                        	<i class="glyphicon glyphicon-barcode"></i> Quản lý Loại mặt hàng
+                        	<i class="glyphicon glyphicon-barcode"></i> Quản lý Loại sản phẩm
                         </a>
                     </li>
-                    <li>
+                    <li id="product">
                         <a th:href="@{/list-product}"><i class="glyphicon glyphicon-tasks"></i> Quản lý Sản phẩm</a>
                     </li>
                     <li>
@@ -109,7 +107,7 @@
                         </a>
                         <ul id="bill" class="collapse">
                             <li>
-                                <a href="#"><i class="glyphicon glyphicon-import"></i>  Phiếu nhập kho</a>
+                                <a href="#"><i class="glyphicon glyphicon-import active"></i>  Phiếu nhập kho</a>
                             </li>
                             <li>
                                 <a href="#"><i class="glyphicon glyphicon-export"></i>  Phiếu xuất kho</a>
@@ -122,8 +120,8 @@
                     <li>
                         <a href="bootstrap-grid.html"><i class="glyphicon glyphicon-equalizer"></i> Bảng giá</a>
                     </li>
-                    <li>
-                        <a th:href="@{/admin}"><i class="glyphicon glyphicon-equalizer"></i> Quản lý Người dùng</a>
+                    <li id="user">
+                        <a th:href="@{/admin}"><i class="glyphicon glyphicon-user"></i> Quản lý Người dùng</a>
                     </li>
                 </ul>
             </div>

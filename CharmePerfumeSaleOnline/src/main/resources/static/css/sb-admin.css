@@ -132,8 +132,7 @@ ul.alert-dropdown {
         width: 225px;
     }
 
-    .side-nav li a:hover,
-    .side-nav li a:focus {
+    .side-nav li a:hover{
         outline: none;
         background-color: #000 !important;
     }

@@ -143,6 +143,27 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			unitPriceRepository.save(unitPrice);
 		}
 		
+		// PRODUCT_TYPE:
+		if(!productTypeRepository.exists("NHNA")) {
+			ProductType productType = new ProductType();
+			
+			productType.setProductTypeId("NHNA");
+			productType.setProductTypeName("Nước hoa Nam");
+			productType.setDecription("Các loại nước hoa Charme dành cho Nam giới");
+			
+			productTypeRepository.save(productType);
+		}
+		
+		if(productTypeRepository.findOne("NHNU") == null) {
+			ProductType productType = new ProductType();
+			
+			productType.setProductTypeId("NHNU");
+			productType.setProductTypeName("Nước hoa Nữ");
+			productType.setDecription("Các loại nước hoa Charme dành cho Nữ giới");
+			
+			productTypeRepository.save(productType);
+		}
+		
 		// PRODUCT:
 		if(productRepository.findOne("NHCHSO25") == null) {
 			Product product = new Product();
@@ -150,10 +171,11 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			product.setProductName("So sexy 25ml");
 			List<UnitPrice> unitPrices = unitPriceRepository.findAll();
 			product.setUnitPrices(unitPrices);
-			ProductType productType = productTypeRepository.findByMaLoai("NAM");
+			ProductType productType = productTypeRepository.findOne("NHNU");
 			product.setProductType(productType);
 			
 			productRepository.save(product);
+			
 		}
 	}
 }

@@ -1,23 +1,12 @@
 window.onload = function() {
-    var date_input=$('input[name="date"]'); //our date input has the name "date"
-	var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-	var options={
-		format: 'dd/mm/yyyy',
-		container: container,
-		todayHighlight: true,
-		autoclose: true
-	};
-	date_input.datepicker(options);
+
+    sideBarClickItems();
+
 }
 
-function setPrice() {
-    var select = $('#unitPriceType').val();
-    $('#price').val(select);
-}
-
-function setActiveItem() {
-    var item = $('#itemId').text();
-    $(item).addClass('active');
+function sideBarClickItems() {
+    var $itemId = $('#menuItem').text();
+    $($itemId).addClass('active');
 }
 
 function changePageAndSize() {

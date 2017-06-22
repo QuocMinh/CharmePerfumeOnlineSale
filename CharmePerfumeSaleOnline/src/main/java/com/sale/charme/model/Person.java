@@ -120,6 +120,12 @@ public class Person {
 		
 		return formatter.format(dob);
 	}
+	
+	public String getDobString() {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		
+		return formatter.format(this.dob);
+	}
 
 	@Override
 	public String toString() {

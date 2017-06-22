@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layout/main-layout-v1">
+<head>
+	<meta charset="UTF-8"/>
+    <title>Quản lý loại sản phẩm</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css"/>
+</head>
+<body>
+	<h3 layout:fragment="header">
+		QUẢN LÝ LOẠI SẢN PHẨM
+	</h3>
+
+	<ol layout:fragment="link">
+		<li>
+            <a th:href="@{/list-product-type}"><i class="glyphicon glyphicon-equalizer"></i> Quản lý Loại sản phẩm</a>
+        </li>
+		<li>
+            <a href="#"><i class="glyphicon glyphicon-edit"></i> Cập nhật thông tin loại sản phẩm</a>
+        </li>
+	</ol>
+
+	<section layout:fragment="content">
+		<h4>Cập nhật thông tin Loại sản phẩm</h4>
+		<hr/>
+		<div th:if="${param.success}" class="alert alert-success fade in">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>Thành công!</strong> Thông tin Loại sản phẩm đã được cập nhật.
+		</div>
+		<div class="row">
+		  	<div class="col-sm-7">
+				<form th:action="@{/update-product-type}" th:method="post"
+					  th:object="${productType}">
+					<div class="table-responsive">
+						<table class="table table-striped">
+							<tr>
+								<td><b>Mã loại: <span class="required"></span></b></td>
+								<td>
+									<input type="text" class="form-control disabled"
+										   th:field="*{productTypeId}"/>
+								</td>
+							</tr>
+							<tr>
+								<td><b>Tên loại: <span class="required">(*)</span></b></td>
+								<td>
+									<input type="text" class="form-control"
+										   th:field="*{productTypeName}"/>
+								</td>
+							</tr>
+							<tr>
+								<td><b>Mô tả:></b></td>
+								<td>
+									<textarea name="decription" rows="8" class="form-control"
+											  th:field="*{decription}"></textarea>
+								</td>
+							</tr>
+							<tr>
+								<td><b></b></td>
+								<td>
+									<button type="submit" class="btn btn-primary">Cập nhật</button>
+									<button type="reset" class="btn btn-warning" id="btnReset">Quay lại mặc định</button>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</form>
+		  	</div>
+			<div class="col-sm-5">
+				<div class="panel panel-warning">
+				  	<div class="panel-heading">CHÚ THÍCH</div>
+				  	<div class="panel-body">
+				  		Text here
+				  	</div>
+				</div>
+			</div>
+		</div>
+		
+		<span id="menuItem" class="hidden">#productType</span>
+	</section>
+</body>
+</html>

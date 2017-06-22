@@ -38,18 +38,23 @@
 #itemId {
 	display: none;
 }
-.glyphicon-edit {
+.btn-edit {
 	color: green;
 }
-.glyphicon-edit:HOVER {
-	color: #009f00;
-}
-.glyphicon-remove {
+.btn-remove {
 	color: #ca0000;
 }
-.glyphicon-remove:hover {
-	color: #f00000;
+.btn-view {
+	color: #006bd7;
 }
 .userInfo {
 	
 }
+.table-info tr td, .table-info tr th {
+	font-size: 13px;
+}
+table.table-info thead tr th {
+	background-color: #337ab7;
+	color: white
+}
+

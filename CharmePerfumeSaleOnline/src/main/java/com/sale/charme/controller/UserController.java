@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,9 @@ public class UserController {
 	
 	@Autowired
 	RoleRepository roleRepository;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 	@GetMapping("/admin")
 	public String showUserPage(Model model, 
@@ -75,9 +79,27 @@ public class UserController {
 	}
 	
 	@GetMapping("/update-user")
-	public String updateUser() {
+	public String updateUser(Model model, @RequestParam("username") String username) {
+		User user = userRepository.findOne(username); // Get user by username on DB
+		
+		model.addAttribute("user", user); // Send user to view
+		model.addAttribute("dob", user.getUserDetail().getDobString()); // send dob String to view
 		
 		return "user-update";
+	}
+	
+	@PostMapping("/update-user")
+	public String handleUpdateUser(Model model,
+			@ModelAttribute("user") User user,
+			@RequestParam("dob") String dob) {
+		
+		user.getUserDetail().setDobString(dob); // Update dob
+		
+		userRepository.save(user); // save user to db
+		
+		model.addAttribute("success", user.getUsername());
+		
+		return "redirect:/update-user?username=" + user.getUsername() + "&success";
 	}
 	
 	@GetMapping("/delete-user")

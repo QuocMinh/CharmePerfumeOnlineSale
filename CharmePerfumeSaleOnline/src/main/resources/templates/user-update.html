@@ -6,121 +6,131 @@
 	<meta charset="UTF-8"/>
     <title>Quản lý người dùng</title>
 	<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css"/>
-	<!-- Bootstrap Date-Picker Plugin -->
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-	<!-- Bootstrap Date-Picker Plugin -->
 </head>
 <body>
-	<h1 layout:fragment="header">
-		QUẢN LÝ NGƯỜI DÙNG
-	</h1>
+	<h3 layout:fragment="header"> QUẢN LÝ NGƯỜI DÙNG </h3>
 
 	<ol layout:fragment="link">
 		<li>
-            <a th:href="@{/admin}"><i class="glyphicon glyphicon-equalizer"></i> Quản lý Người dùng</a>
+            <a th:href="@{/admin}"><i class="glyphicon glyphicon-user"></i> Quản lý Người dùng</a>
+        </li>
+        <li>
+            <a th:href="@{/admin}"><i class="glyphicon glyphicon-edit"></i> Cập nhật thông tin Người dùng</a>
         </li>
 	</ol>
 
 	<section layout:fragment="content">
 		<div th:if="${param.success}" class="alert alert-success fade in">
 			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			<strong>Thành công!</strong> Tài khoản <b th:text="${param.success[0]}"></b> đã được tạo mới.
+			<strong>Thành công!</strong> Tài khoản đã được cập nhật.
 		</div>
-		<div th:if="${param.deleted}" class="alert alert-success fade in">
-			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			<strong>Thành công!</strong> Đã xóa tài khoản <b th:text="${param.deleted[0]}"></b>.
-		</div>
-		<div th:if="${param.error}" class="alert alert-danger fade in">
-			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			<strong>Lỗi!</strong> Tài khoản <b th:text="${param.error[0]}"></b> đã tồn tại!
-		</div>
-		<h2>Cập nhật thông tin người dùng</h2>
+		<h4>Cập nhật thông tin người dùng</h4>
 		<hr/>
 		<div class="row">
 		  	<div class="col-sm-2">
 		  		<img th:src="@{\img\photo.jpg.png}" alt="profile image" class="img-rounded img-responsive"/>
 		  	</div>
-		  	<div class="col-sm-10">
+		  	<div class="col-sm-7">
 		  		<div class="container-fluid">
-					<form class="form-horizontal" action="index.html" method="post">
+					<form class="form-horizontal" th:action="@{/update-user}" th:method="post"
+						  th:object="${user}">
 						<div class="form-group">
-						  	<label for="" class="control-label col-sm-3">Tài khoản:</label>
+						  	<label for="username" class="control-label col-sm-5"> Tài khoản: </label>
 						  	<div class="col-sm-7">
-						  		<input type="text" class="form-control disabled" id=""
-								th:value="cqminh1995" required="required" />
-						  	</div>
-							<div class="col-sm-2 required"><span>(*)</span></div>
-						</div>
-						<div class="form-group">
-						  	<label for="" class="control-label col-sm-3">Họ tên:</label>
-						  	<div class="col-sm-7">
-						  		<input type="text" class="form-control" id="" required="required" />
-						  	</div>
-							<div class="col-sm-2 required"><span>(*)</span></div>
-						</div>
-						<div class="form-group">
-						  	<label for="" class="control-label col-sm-3">Ngày sinh:</label>
-						  	<div class="col-sm-7">
-						  		<input type="date" class="form-control" id="dob" name="dob" required="required" />
-						  	</div>
-							<div class="col-sm-2 required"><span>(*)</span></div>
-						</div>
-						<div class="form-group">
-						  	<label for="" class="control-label col-sm-3">Giới tính</label>
-						  	<div class="col-sm-7">
-						  		<input type="text" class="form-control" id="" required="required" />
-						  	</div>
-							<div class="col-sm-2 required"><span>(*)</span></div>
-						</div>
-						<div class="form-group">
-						  	<label for="" class="control-label col-sm-3">Số nhà:</label>
-						  	<div class="col-sm-7">
-							  	<input type="text" class="form-control" id="" />
+						  		<input type="text" class="form-control disabled" id="username"
+									   th:field="*{username}" required="required" />
 						  	</div>
 						</div>
 						<div class="form-group">
-						  	<label for="" class="control-label col-sm-3">Đường:</label>
+						  	<label for="password" class="control-label col-sm-5"> Mật khẩu: </label>
 						  	<div class="col-sm-7">
-							  	<input type="text" class="form-control" id="" />
+						  		<input type="password" class="disabled" id="password"
+									   name="password" th:value="${user.password}" required="required" />
+								<span>
+									<a href="#" class="btn btn-default btn-xs">
+									 	<i class="glyphicon glyphicon-edit btn-edit"></i> Change
+								 	</a>
+								</span>
 						  	</div>
 						</div>
 						<div class="form-group">
-						  	<label for="" class="control-label col-sm-3">Xã / Phường:</label>
+						  	<label for="fullName" class="control-label col-sm-5">
+								Họ tên: <span class="required">(*)</span>
+							</label>
 						  	<div class="col-sm-7">
-							  	<input type="text" class="form-control" id="" />
+						  		<input type="text" class="form-control" id="fullName" th:field="*{userDetail.fullName}" required="required" />
 						  	</div>
 						</div>
 						<div class="form-group">
-						  	<label for="" class="control-label col-sm-3">Huyện / Quận:</label>
+						  	<label for="dob" class="control-label col-sm-5">
+								Ngày sinh: <span class="required">(*)</span>
+							</label>
 						  	<div class="col-sm-7">
-							  	<input type="text" class="form-control" id="" required="required"/>
+						  		<input type="date" class="form-control" id="dob" name="dob" th:value="${dob}" required="required"/>
+								<div class="help-block">Nhập theo định dạng: DD/MM/YYYY</div>
 						  	</div>
-							<div class="col-sm-2 required"><span>(*)</span></div>
 						</div>
 						<div class="form-group">
-						  	<label for="" class="control-label col-sm-3">Tỉnh / Thành Phố:</label>
+						  	<label for="sex" class="control-label col-sm-5">
+								Giới tính <span class="required">(*)</span>
+							</label>
 						  	<div class="col-sm-7">
-							  	<input type="text" class="form-control" id="" required="required"/>
+								<select class="form-control" name="sex" id="sex" th:field="*{userDetail.sex}" required="required">
+									<option th:value="Nam">Nam</option>
+									<option th:value="Nữ">Nữ</option>
+								</select>
 						  	</div>
-							<div class="col-sm-2 required"><span>(*)</span></div>
 						</div>
 						<div class="form-group">
-						  	<label for="" class="control-label col-sm-3">Số điện thoại:</label>
+						  	<label for="no" class="control-label col-sm-5">Số nhà:</label>
 						  	<div class="col-sm-7">
-						  		<input type="text" class="form-control" id="" required="required" />
+							  	<input type="text" class="form-control" id="no" th:field="*{userDetail.address.no}"/>
 						  	</div>
-							<div class="col-sm-2 required"><span>(*)</span></div>
 						</div>
 						<div class="form-group">
-						  	<label for="" class="control-label col-sm-3">Địa chỉ email:</label>
+						  	<label for="street" class="control-label col-sm-5">Đường:</label>
 						  	<div class="col-sm-7">
-						  		<input type="email" class="form-control" id="" required="required" />
+							  	<input type="text" class="form-control" id="street" th:field="*{userDetail.address.street}"/>
 						  	</div>
-							<div class="col-sm-2 required"><span>(*)</span></div>
 						</div>
 						<div class="form-group">
-						    <div class="col-sm-offset-3 col-sm-9">
+						  	<label for="ward" class="control-label col-sm-5">Xã / Phường:</label>
+						  	<div class="col-sm-7">
+							  	<input type="text" class="form-control" id="ward" th:field="*{userDetail.address.ward}"/>
+						  	</div>
+						</div>
+						<div class="form-group">
+						  	<label for="district" class="control-label col-sm-5"> Huyện / Quận: <span class="required">(*)</span> </label>
+						  	<div class="col-sm-7">
+							  	<input type="text" class="form-control" id="district" th:field="*{userDetail.address.district}" required="required"/>
+						  	</div>
+						</div>
+						<div class="form-group">
+						  	<label for="city" class="control-label col-sm-5">
+								Tỉnh / Thành Phố: <span class="required">(*)</span>
+							</label>
+						  	<div class="col-sm-7">
+							  	<input type="text" class="form-control" id="city" th:field="*{userDetail.address.city}" required="required"/>
+						  	</div>
+						</div>
+						<div class="form-group">
+						  	<label for="phone" class="control-label col-sm-5">
+								Số điện thoại: <span class="required">(*)</span>
+							</label>
+						  	<div class="col-sm-7">
+						  		<input type="text" class="form-control" id="phone" th:field="*{userDetail.phone}" required="required" />
+						  	</div>
+						</div>
+						<div class="form-group">
+						  	<label for="email" class="control-label col-sm-5">
+								Địa chỉ email: <span class="required">(*)</span>
+							</label>
+						  	<div class="col-sm-7">
+						  		<input type="email" class="form-control" id="email" th:field="*{userDetail.email}" required="required" />
+						  	</div>
+						</div>
+						<div class="form-group">
+						    <div class="col-sm-offset-5 col-sm-7">
 						      	<button type="submit" class="btn btn-primary">Cập nhật</button>
 								<button type="reset" class="btn btn-warning" id="btnReset">Làm mới</button>
 						    </div>
@@ -128,9 +138,17 @@
 					</form>
 		  		</div>
 		  	</div>
+			<div class="col-sm-3">
+				<div class="panel panel-warning">
+				  	<div class="panel-heading">CHÚ THÍCH</div>
+				  	<div class="panel-body">
+				  		Text here
+				  	</div>
+				</div>
+			</div>
 		</div>
+
+		<span id="menuItem" class="hidden">#user</span>
 	</section>
-
-
 </body>
 </html>

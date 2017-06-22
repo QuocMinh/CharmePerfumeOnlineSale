@@ -27,7 +27,7 @@ public class ProductTypeController {
 	private static final int[] PAGE_SIZES = { 5, 10, 20 };
 	
 	@Autowired
-	ProductTypeRepository loaiMHRepo;
+	ProductTypeRepository productTypeRepository;
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -44,34 +44,62 @@ public class ProductTypeController {
 		// param. decreased by 1.
 		int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 		
-		Page<ProductType> loaiMHs = loaiMHRepo.findAllPageable(new PageRequest(evalPage, evalPageSize));
-		Pager pager = new Pager(loaiMHs.getTotalPages(), loaiMHs.getNumber(), BUTTONS_TO_SHOW);
+		Page<ProductType> productTypes = productTypeRepository.findAllPageable(
+					new PageRequest(evalPage, evalPageSize)
+				);
+		Pager pager = new Pager(productTypes.getTotalPages(), productTypes.getNumber(), 
+				BUTTONS_TO_SHOW);
 		
-		model.addAttribute("loaiMHs", loaiMHs);
-		model.addAttribute("loaiMHNew", new ProductType());
-		model.addAttribute("selectedPageSize", evalPageSize);
+		model.addAttribute("productTypes", productTypes);
+		model.addAttribute("newProductType", new ProductType());
 		model.addAttribute("pageSizes", PAGE_SIZES);
 		model.addAttribute("pager", pager);
 		
 		return "loaimathang";
 	}
 	
+	@PostMapping("/create-product-type")
+	public String createProductType(
+			@ModelAttribute("newProductType") ProductType newProductType) {
+		
+		String newProductTypeId = newProductType.getProductTypeId();
+		
+		if(!productTypeRepository.exists(newProductTypeId)) {
+			productTypeRepository.insert(newProductType);
+			
+			return "redirect:/list-product-type?success=" + newProductTypeId;
+		}
+		
+		return "redirect:/list-product-type?error=" + newProductTypeId;
+	}
+	
+	@GetMapping("/update-product-type")
+	public String updateProductType(Model model,
+			@RequestParam("id") String productTypeId) {
+		
+		// Get product type from DB by product type id
+		ProductType productType = productTypeRepository.findOne(productTypeId); 
+		
+		model.addAttribute("productType", productType);
+		
+		return "product-type-update";
+	}
+	
 	@PostMapping("/update-product-type")
-	public String handleUpdate(@ModelAttribute ProductType loaiMH) {
+	public String handleUpdate(@ModelAttribute ProductType productType) {
 		
-		loaiMHRepo.save(loaiMH);
+		productTypeRepository.save(productType);
 		
-		return "redirect:/list-product-type";
+		return "redirect:/update-product-type?id=" + productType.getProductTypeId() + "&success";
 	}
 	
 	
 	@GetMapping("/delete-product-type")
-	public String handleDelete(@RequestParam String id) {
-		logger.info("Delete --> id = " + id);
+	public String handleDelete(@RequestParam("id") String id) {
 		
-		loaiMHRepo.delete(id);
+		productTypeRepository.delete(id);
 		
-		return "redirect:/list-product-type";
+		return "redirect:/list-product-type?deleted=" + id;
 	}
 	
 }
