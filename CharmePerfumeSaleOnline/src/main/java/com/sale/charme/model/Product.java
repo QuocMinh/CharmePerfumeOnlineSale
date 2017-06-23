@@ -50,7 +50,7 @@ public class Product {
 		this.describe = describe;
 		this.unitPrices = unitPrices;
 	}
-
+	
 	public String getProductId() {
 		return productId;
 	}
@@ -106,7 +106,7 @@ public class Product {
 	public void setUnitPrices(List<UnitPrice> unitPrices) {
 		this.unitPrices = unitPrices;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Product [productId=" + productId + ", productName="

@@ -3,3 +3,6 @@ Paging: https://github.com/BranislavLazic/spring-thymeleaf-pagination
 Example: https://github.com/yuen26/spring-shop
 
 Spring security: https://kipalog.com/posts/Huong-dan-lap-trinh-Spring-Security
+
+Send list to controller
+http://forum.thymeleaf.org/I-have-problem-in-binding-the-list-of-objects-contained-inside-a-object-on-the-form-using-thymeleaf-td3525038.html

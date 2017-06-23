@@ -17,23 +17,11 @@
             <a th:href="@{/admin}"><i class="glyphicon glyphicon-user"></i> Quản lý Người dùng</a>
         </li>
         <li>
-            <a th:href="@{/admin}"><i class="glyphicon glyphicon-eye-open"></i> Thông tin Người dùng</a>
+            <a href="#"><i class="glyphicon glyphicon-eye-open"></i> Thông tin Người dùng</a>
         </li>
 	</ol>
 
 	<section layout:fragment="content">
-		<div th:if="${param.success}" class="alert alert-success fade in">
-			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			<strong>Thành công!</strong> Tài khoản <b th:text="${param.success[0]}"></b> đã được tạo mới.
-		</div>
-		<div th:if="${param.deleted}" class="alert alert-success fade in">
-			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			<strong>Thành công!</strong> Đã xóa tài khoản <b th:text="${param.deleted[0]}"></b>.
-		</div>
-		<div th:if="${param.error}" class="alert alert-danger fade in">
-			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			<strong>Lỗi!</strong> Tài khoản <b th:text="${param.error[0]}"></b> đã tồn tại!
-		</div>
 		<h4>Thông tin người dùng</h4>
 		<hr/>
 		<div class="row">
@@ -41,55 +29,53 @@
 		  		<img th:src="@{\img\photo.jpg.png}" alt="profile image" class="img-rounded img-responsive"/>
 		  	</div>
 		  	<div class="col-sm-10">
-		  		<div class="container-fluid userInfo">
-					<table class="table table-striped">
-						<tr>
-							<td><b>Họ tên:</b></td>
-							<td><span th:text="${user.userDetail.fullName}">Chau Quoc Minh</span></td>
-						</tr>
-						<tr>
-							<td><b>Ngày sinh:</b></td>
-							<td><span th:text="${user.userDetail.dob}">28/10/1995</span></td>
-						</tr>
-						<tr>
-							<td><b>Giới tính:</b></td>
-							<td><span th:text="${user.userDetail.sex}">Nam</span></td>
-						</tr>
-						<tr>
-							<td><b>Địa chỉ:</b></td>
-							<td><span th:text="${#strings.toString(user.userDetail.address)}">xxxx</span></td>
-						</tr>
-						<tr>
-							<td><b>Số điện thoại:</b></td>
-							<td><span th:text="${user.userDetail.phone}">0123 94 96 986</span></td>
-						</tr>
-						<tr>
-							<td><b>Địa chỉ Email:</b></td>
-							<td><span th:text="${user.userDetail.email}">cqminh1995@gmail.com</span></td>
-						</tr>
-						<tr>
-							<td><b>Tài khoản:</b></td>
-							<td><span th:text="${user.username}">cqminh1995</span></td>
-						</tr>
-						<tr>
-							<td><b>Mật khẩu:</b></td>
-							<td>
-								<span>******</span>
-								<a href="#" class="btn btn-default btn-xs">
-									<i class="glyphicon glyphicon-edit btn-edit"></i> Change
-								</a>
-							</td>
-						</tr>
-					</table>
-					<a th:href="@{/update-user?username=} + ${user.username}" class="btn btn-default">
-						<i class="glyphicon glyphicon-edit btn-edit"></i> Cập nhật</a>
-					<a th:href="@{/delete-user?username=} + ${user.username}"  class="btn btn-default">
-						<i class="glyphicon glyphicon-remove btn-remove"></i> Xóa</a>
-		  		</div>
+				<table class="table table-striped">
+					<tr>
+						<td><b>Họ tên:</b></td>
+						<td><span th:text="${user.userDetail.fullName}">Chau Quoc Minh</span></td>
+					</tr>
+					<tr>
+						<td><b>Ngày sinh:</b></td>
+						<td><span th:text="${user.userDetail.dob}">28/10/1995</span></td>
+					</tr>
+					<tr>
+						<td><b>Giới tính:</b></td>
+						<td><span th:text="${user.userDetail.sex}">Nam</span></td>
+					</tr>
+					<tr>
+						<td><b>Địa chỉ:</b></td>
+						<td><span th:text="${#strings.toString(user.userDetail.address)}">xxxx</span></td>
+					</tr>
+					<tr>
+						<td><b>Số điện thoại:</b></td>
+						<td><span th:text="${user.userDetail.phone}">0123 94 96 986</span></td>
+					</tr>
+					<tr>
+						<td><b>Địa chỉ Email:</b></td>
+						<td><span th:text="${user.userDetail.email}">cqminh1995@gmail.com</span></td>
+					</tr>
+					<tr>
+						<td><b>Tài khoản:</b></td>
+						<td><span th:text="${user.username}">cqminh1995</span></td>
+					</tr>
+					<tr>
+						<td><b>Mật khẩu:</b></td>
+						<td>
+							<span>******</span>
+							<a href="#" class="btn btn-default btn-xs">
+								<i class="glyphicon glyphicon-edit btn-edit"></i> Change
+							</a>
+						</td>
+					</tr>
+				</table>
+				<a th:href="@{/update-user?username=} + ${user.username}" class="btn btn-default">
+					<i class="glyphicon glyphicon-edit btn-edit"></i> Cập nhật</a>
+				<a th:href="@{/delete-user?username=} + ${user.username}"  class="btn btn-default">
+					<i class="glyphicon glyphicon-remove btn-remove"></i> Xóa</a>
 		  	</div>
 		</div>
-	</section>
 
-	<span id="menuItem" class="hidden">#user</span>
+		<span id="menuItem" class="hidden">#user</span>
+	</section>
 </body>
 </html>

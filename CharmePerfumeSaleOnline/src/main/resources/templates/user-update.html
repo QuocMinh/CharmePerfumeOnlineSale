@@ -37,15 +37,13 @@
 						<div class="form-group">
 						  	<label for="username" class="control-label col-sm-5"> Tài khoản: </label>
 						  	<div class="col-sm-7">
-						  		<input type="text" class="form-control disabled" id="username"
-									   th:field="*{username}" required="required" />
+						  		<input type="text" class="form-control disabled" id="username" th:field="*{username}" required="required" />
 						  	</div>
 						</div>
 						<div class="form-group">
 						  	<label for="password" class="control-label col-sm-5"> Mật khẩu: </label>
 						  	<div class="col-sm-7">
-						  		<input type="password" class="disabled" id="password"
-									   name="password" th:value="${user.password}" required="required" />
+						  		<input type="password" class="disabled" id="password" name="password" th:value="${user.password}" required="required" />
 								<span>
 									<a href="#" class="btn btn-default btn-xs">
 									 	<i class="glyphicon glyphicon-edit btn-edit"></i> Change

@@ -32,38 +32,33 @@
 		  	<div class="col-sm-7">
 				<form th:action="@{/update-product-type}" th:method="post"
 					  th:object="${productType}">
-					<div class="table-responsive">
-						<table class="table table-striped">
-							<tr>
-								<td><b>Mã loại: <span class="required"></span></b></td>
-								<td>
-									<input type="text" class="form-control disabled"
-										   th:field="*{productTypeId}"/>
-								</td>
-							</tr>
-							<tr>
-								<td><b>Tên loại: <span class="required">(*)</span></b></td>
-								<td>
-									<input type="text" class="form-control"
-										   th:field="*{productTypeName}"/>
-								</td>
-							</tr>
-							<tr>
-								<td><b>Mô tả:></b></td>
-								<td>
-									<textarea name="decription" rows="8" class="form-control"
-											  th:field="*{decription}"></textarea>
-								</td>
-							</tr>
-							<tr>
-								<td><b></b></td>
-								<td>
-									<button type="submit" class="btn btn-primary">Cập nhật</button>
-									<button type="reset" class="btn btn-warning" id="btnReset">Quay lại mặc định</button>
-								</td>
-							</tr>
-						</table>
-					</div>
+					<table class="table table-striped">
+  						<tr>
+  							<td><b>Mã loại: <span class="required"></span></b></td>
+  							<td>
+  								<input type="text" class="form-control disabled" th:field="*{productTypeId}"/>
+  							</td>
+  						</tr>
+  						<tr>
+  							<td><b>Tên loại: <span class="required">(*)</span></b></td>
+  							<td>
+  								<input type="text" class="form-control" th:field="*{productTypeName}"/>
+  							</td>
+  						</tr>
+  						<tr>
+  							<td><b>Mô tả:></b></td>
+  							<td>
+  								<textarea name="decription" rows="8" class="form-control" th:field="*{decription}"></textarea>
+  							</td>
+  						</tr>
+  						<tr>
+  							<td></td>
+  							<td>
+  								<button type="submit" class="btn btn-primary">Cập nhật</button>
+  								<button type="reset" class="btn btn-warning" id="btnReset">Quay lại mặc định</button>
+  							</td>
+  						</tr>
+  					</table>
 				</form>
 		  	</div>
 			<div class="col-sm-5">
@@ -75,7 +70,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<span id="menuItem" class="hidden">#productType</span>
 	</section>
 </body>

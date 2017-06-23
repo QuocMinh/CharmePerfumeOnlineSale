@@ -29,71 +29,65 @@
 			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 			<strong>Lỗi!</strong> Tài khoản <b th:text="${param.error[0]}"></b> đã tồn tại!
 		</div>
-		<div class="panel panel-primary">
-		  	<div class="panel-heading">DANH SÁCH NGƯỜI DÙNG</div>
-		  	<div class="panel-body">
-		  		<div class="table-responsive">
-					<table class="table table-info table-striped table-bordered table-condensed">
-						<thead>
-							<tr>
-								<th class="">#</th>
-								<th class="col-sm-2">Tài khoản</th>
-								<th class="col-sm-2">Họ tên</th>
-								<th class="col-sm-4">Địa chỉ</th>
-								<th class="col-sm-2">Số điện thoại</th>
-								<th class="col-sm-2">Công cụ</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="user, int : ${users}" class="clickable">
-								<td class="" th:text="${int.index + 1}"></td>
-								<td class="col-sm-2" th:text="${user.username}"></td>
-								<td class="col-sm-2" th:text="${user.userDetail.fullName}"></td>
-								<td class="col-sm-4" th:text="${#strings.toString(user.userDetail.address)}"></td>
-								<td class="col-sm-2" th:text="${user.userDetail.phone}"></td>
-								<td class="col-sm-2">
-									<a th:href="@{/view-user?username=} + ${user.username}" class="btn btn-default btn-xs btn-view">
-										<i class="glyphicon glyphicon-eye-open"></i>
-									</a> -
-									<a th:href="@{/update-user?username=} + ${user.username}" class="btn btn-default btn-xs btn-edit">
-										<i class="glyphicon glyphicon-edit"></i>
-									</a> -
-									<a th:href="@{/delete-user?username=} + ${user.username}" class="btn btn-default btn-xs btn-remove">
-										<i class="glyphicon glyphicon-remove"></i>
-									</a>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-
-				<!-- Paging -->
-				<div class="row">
-					<div th:if="${users.totalPages >= 1}"
-						 class="form-group col-md-12 pagination-centered">
-						<ul class="pagination">
-							<li th:class="${users.number == 0} ? disabled">
-								<a class="pageLink" th:href="@{/admin?(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
-							</li>
-							<li th:class="${users.number == 0} ? disabled">
-								<a class="pageLink" th:href="@{/admin?(pageSize=${selectedPageSize}, page=${users.number})}">&larr;</a>
-							</li>
-							<li th:class="${users.number == (page - 1)} ? 'active pointer-disabled'" th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
-								<a class="pageLink" th:href="@{/admin?(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a>
-							</li>
-							<li th:class="${users.number + 1 == users.totalPages} ? disabled">
-								<a class="pageLink" th:href="@{/admin?(pageSize=${selectedPageSize}, page=${users.number + 2})}">&rarr;</a>
-							</li>
-							<li th:class="${users.number + 1 == users.totalPages} ? disabled">
-								<a class="pageLink" th:href="@{/admin?(pageSize=${selectedPageSize}, page=${users.totalPages})}">&raquo;</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<!-- End Paging -->
-
-		  	</div>
+		<h4>DANH SÁCH NGƯỜI DÙNG</h4>
+		<hr/>
+		<table class="table table-info table-striped table-bordered table-condensed">
+			<thead>
+				<tr>
+					<th class="">#</th>
+					<th class="col-sm-2">Tài khoản</th>
+					<th class="col-sm-2">Họ tên</th>
+					<th class="col-sm-4">Địa chỉ</th>
+					<th class="col-sm-2">Số điện thoại</th>
+					<th class="col-sm-2">Công cụ</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user, int : ${users}" class="clickable">
+					<td class="" th:text="${int.index + 1}"></td>
+					<td class="col-sm-2" th:text="${user.username}"></td>
+					<td class="col-sm-2" th:text="${user.userDetail.fullName}"></td>
+					<td class="col-sm-4" th:text="${#strings.toString(user.userDetail.address)}"></td>
+					<td class="col-sm-2" th:text="${user.userDetail.phone}"></td>
+					<td class="col-sm-2">
+						<a th:href="@{/view-user?username=} + ${user.username}" class="btn btn-default btn-xs btn-view">
+							<i class="glyphicon glyphicon-eye-open"></i>
+						</a> -
+						<a th:href="@{/update-user?username=} + ${user.username}" class="btn btn-default btn-xs btn-edit">
+							<i class="glyphicon glyphicon-edit"></i>
+						</a> -
+						<a th:href="@{/delete-user?username=} + ${user.username}" class="btn btn-default btn-xs btn-remove">
+							<i class="glyphicon glyphicon-remove"></i>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- Paging -->
+		<div class="row">
+			<div th:if="${users.totalPages >= 1}"
+				 class="col-md-12 pagination-centered">
+				<ul class="pagination">
+					<li th:class="${users.number == 0} ? disabled">
+						<a class="pageLink" th:href="@{/admin?(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+					</li>
+					<li th:class="${users.number == 0} ? disabled">
+						<a class="pageLink" th:href="@{/admin?(pageSize=${selectedPageSize}, page=${users.number})}">&larr;</a>
+					</li>
+					<li th:class="${users.number == (page - 1)} ? 'active pointer-disabled'" th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+						<a class="pageLink" th:href="@{/admin?(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a>
+					</li>
+					<li th:class="${users.number + 1 == users.totalPages} ? disabled">
+						<a class="pageLink" th:href="@{/admin?(pageSize=${selectedPageSize}, page=${users.number + 2})}">&rarr;</a>
+					</li>
+					<li th:class="${users.number + 1 == users.totalPages} ? disabled">
+						<a class="pageLink" th:href="@{/admin?(pageSize=${selectedPageSize}, page=${users.totalPages})}">&raquo;</a>
+					</li>
+				</ul>
+			</div>
 		</div>
+		<!-- End Paging -->
+		<hr/>
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="panel panel-success">

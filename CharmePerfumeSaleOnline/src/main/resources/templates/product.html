@@ -68,7 +68,7 @@
 		</div>
 		<div class="row">
 			<div th:if="${products.totalPages >= 1}"
-				 class="form-group col-md-12 pagination-centered text-align-right">
+				 class="col-md-12 pagination-centered text-align-right">
 				<ul class="pagination">
 					<li th:class="${products.number == 0} ? disabled">
 						<a class="pageLink" th:href="@{/list-product?(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
@@ -89,6 +89,7 @@
 				</ul>
 			</div>
 		</div>
+		<hr/>
 		<div class="row">
 			<div class="col-sm-8">
 				<div class="panel panel-success">
@@ -143,7 +144,7 @@
 									<tr>
 										<td><b></b></td>
 										<td>
-											<button type="submit" class="btn btn-primary">Cập nhật</button>
+											<button type="submit" class="btn btn-primary">Thêm mới</button>
 											<button type="reset" class="btn btn-warning" id="btnReset">Làm mới</button>
 										</td>
 									</tr>

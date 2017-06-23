@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.sale.charme.model.Pager;
 import com.sale.charme.model.Product;
 import com.sale.charme.model.ProductType;
+import com.sale.charme.model.UnitPrice;
 import com.sale.charme.repository.ProductRepository;
 import com.sale.charme.repository.ProductTypeRepository;
 import com.sale.charme.service.Constant;
@@ -52,6 +53,7 @@ public class ProductController {
 		model.addAttribute("productTypes", productTypes);
 		
 		return "product";
+		
 	}
 	
 	@PostMapping("/create-product")
@@ -73,12 +75,56 @@ public class ProductController {
 		return "redirect:/list-product?error=" + newProductId;
 	}
 	
+	@GetMapping("/update-product")
+	public String udpateProduct(Model model,
+			@RequestParam("id") String id) {
+		
+		// Find product by id
+		Product product = productRepository.findOne(id);
+		
+		// Find all product type
+		List<ProductType> productTypes = productTypeRepository.findAll();
+		
+		// Send to view
+		model.addAttribute("product", product);
+		model.addAttribute("productTypes", productTypes);
+		
+		return "product-update";
+	}
+	
+	@PostMapping("/update-product")
+	public String handleUpdateProduct(@ModelAttribute("product") Product updatedProduct) {
+		
+		// Get Product Type from db
+		ProductType productType = productTypeRepository.findOne(updatedProduct
+				.getProductType().getProductTypeId());
+		
+		// Update unit price
+		List<UnitPrice> updatedUnitPrices = productRepository.findOne(updatedProduct.getProductId()).getUnitPrices();
+		
+		updatedProduct.setProductType(productType);
+		
+		productRepository.save(updatedProduct); 
+		
+		return "redirect:/update-product?success&id=" + updatedProduct.getProductId();
+	}
+	
 	@GetMapping("/delete-product")
 	public String deleteProduct(@RequestParam("id") String id) {
 		
 		productRepository.delete(id);
 		
 		return "redirect:/list-product?deleted=" + id;
+	}
+	
+	@GetMapping("/view-product")
+	public String viewProductDetails(Model model,
+			@RequestParam("id") String productId) {
+		
+		// Find and send product to view with request id
+		model.addAttribute("product", productRepository.findOne(productId));
+		
+		return "product-details";
 	}
 
 }

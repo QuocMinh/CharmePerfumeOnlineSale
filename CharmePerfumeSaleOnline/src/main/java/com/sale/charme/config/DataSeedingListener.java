@@ -101,11 +101,11 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 		}
 		
 		// CUSTOMER_TYPE:
-		if(customerTypeRepository.findByCustomerType("LE") == null) {
-			customerTypeRepository.save(new CustomerType("LE", "Khach ban le"));
+		if(customerTypeRepository.findOne("KHLE") == null) {
+			customerTypeRepository.save(new CustomerType("KHLE", "Khách bán lẻ", null));
 		}
-		if(customerTypeRepository.findByCustomerType("SI") == null) {
-			customerTypeRepository.save(new CustomerType("SI", "Khach ban si"));
+		if(customerTypeRepository.findOne("SI05") == null) {
+			customerTypeRepository.save(new CustomerType("SI05", "Khách sỉ 5", "Khách lấy sỉ 5 chai"));
 		}
 		
 		// CUSTOMER:
@@ -122,23 +122,22 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			customerRepository.save(customer);
 		}
 		
+		
 		// UNIT_PRICE
-		CustomerType customerType = customerTypeRepository.findByCustomerType("LE");
-		if(unitPriceRepository.findByCustomerType(customerType.getCustomerTypeId()) == null) {
+		if(unitPriceRepository.findByCustomerType("KHLE") == null) {
 			UnitPrice unitPrice = new UnitPrice();
-			unitPrice.setCustomerType(customerType);
+			unitPrice.setCustomerType(customerTypeRepository.findOne("KHLE"));
 			unitPrice.setPrice(100000);
 			unitPrice.setDecription("Gia ban le");
 			
 			unitPriceRepository.save(unitPrice);
 		}
 		
-		customerType = customerTypeRepository.findByCustomerType("SI");
-		if(unitPriceRepository.findByCustomerType(customerType.getCustomerTypeId()) == null) {
+		if(unitPriceRepository.findByCustomerType("SI05") == null) {
 			UnitPrice unitPrice = new UnitPrice();
-			unitPrice.setCustomerType(customerType);
+			unitPrice.setCustomerType(customerTypeRepository.findOne("SI05"));
 			unitPrice.setPrice(50000);
-			unitPrice.setDecription("Gia ban si");
+			unitPrice.setDecription("Gia ban si 5 chai");
 			
 			unitPriceRepository.save(unitPrice);
 		}

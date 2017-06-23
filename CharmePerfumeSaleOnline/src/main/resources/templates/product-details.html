@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layout/main-layout-v1">
+<head>
+	<meta charset="UTF-8"/>
+    <title>Quản lý sản phẩm</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css"/>
+</head>
+<body>
+	<h3 layout:fragment="header">
+		QUẢN LÝ SẢN PHẨM
+	</h3>
+
+	<ol layout:fragment="link">
+		<li>
+            <a th:href="@{/list-product}"><i class="glyphicon glyphicon-tasks"></i> Quản lý sản phẩm</a>
+        </li>
+        <li>
+            <a href="#"><i class="glyphicon glyphicon-eye-open"></i> Thông tin sản phẩm</a>
+        </li>
+	</ol>
+
+	<section layout:fragment="content">
+		<h4>Thông tin sản phẩm</h4>
+		<hr/>
+		<div class="row">
+		  	<div class="col-sm-4">
+		  		<img th:src="@{\img\photo.jpg.png}" alt="profile image" class="img-rounded img-responsive"/>
+		  	</div>
+		  	<div class="col-sm-8">
+				<table class="table table-striped">
+					<tr>
+						<td class="col-sm-4"><b>Loại sản phẩm:</b></td>
+						<td>
+							<span th:text="${product.productType.productTypeId}"></span>
+								&emsp;-&emsp;
+							<span th:text="${product.productType.productTypeName}"></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="col-sm-4"><b>Mã sản phẩm:</b></td>
+						<td th:text="${product.productId}"></td>
+					</tr>
+					<tr>
+						<td class="col-sm-4"><b>Tên sản phẩm:</b></td>
+						<td th:text="${product.productName}"></td>
+					</tr>
+					<tr>
+						<td class="col-sm-4"><b>Đơn vị tính:</b></td>
+						<td th:text="${product.unit}"></td>
+					</tr>
+					<tr>
+						<td class="col-sm-4"><b>Khối lượng / Thể tích:</b></td>
+						<td>
+							<span th:text="${product.volume}"></span>
+							<span th:if="${product.unit} == 'Chai'">ml</span>
+						</td>
+					</tr>
+					<tr>
+						<td class="col-sm-4"><b>Mô tả:</b></td>
+						<td>
+							<span th:if="${product.describe} == ''"><i>(Chưa cập nhật)</i></span>
+							<span th:if="${product.describe} != null" th:text="${product.describe}"></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="col-sm-4"><b>Bảng giá:</b></td>
+						<td>
+							<table  class="table table-info table-condensed table-striped">
+								<thead>
+									<tr>
+										<th>Loại khách hàng</th>
+										<th>Đơn giá</th>
+									</tr>
+								</thead>
+								<tbody th:if="${product.unitPrices} == null">
+									<tr>
+										<td><i>(Chưa cập nhật)</i></td>
+										<td><i>(Chưa cập nhật)</i></td>
+									</tr>
+								</tbody>
+								<tbody th:if="${product.unitPrices} != null">
+									<tr th:each="unitPrice : ${product.unitPrices}">
+										<td th:text="${unitPrice.customerType.customerType}"></td>
+										<td>
+											<span th:text="${unitPrice.price}"></span>
+											<span>VNĐ</span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<a href="#" class="btn btn-default btn-xs">
+								<i class="glyphicon glyphicon-edit btn-edit"></i> Cập nhật bảng giá
+							</a>
+						</td>
+					</tr>
+				</table>
+				<a th:href="@{/update-product?id=} + ${product.productId}" class="btn btn-default">
+					<i class="glyphicon glyphicon-edit btn-edit"></i> Cập nhật</a>
+				<a th:href="@{/delete-product?id=} + ${product.productId}"  class="btn btn-default">
+					<i class="glyphicon glyphicon-remove btn-remove"></i> Xóa</a>
+		  	</div>
+		</div>
+
+		<span id="menuItem" class="hidden">#product</span>
+	</section>
+</body>
+</html>
