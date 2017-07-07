@@ -8,10 +8,6 @@
 	<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css"/>
 </head>
 <body>
-	<h3 layout:fragment="header">
-		QUẢN LÝ SẢN PHẨM
-	</h3>
-
 	<ol layout:fragment="link">
 		<li>
             <a th:href="@{/list-product}"><i class="glyphicon glyphicon-tasks"></i> Quản lý sản phẩm</a>
@@ -70,21 +66,56 @@
 							<table  class="table table-info table-condensed table-striped">
 								<thead>
 									<tr>
-										<th>Loại khách hàng</th>
-										<th>Đơn giá</th>
+										<th>Loại giá</th>
+										<th>Đơn giá (VNĐ)</th>
 									</tr>
 								</thead>
-								<tbody th:if="${product.unitPrices} == null">
+								<tbody th:if="${product.unitPrice} == null">
 									<tr>
 										<td><i>(Chưa cập nhật)</i></td>
 										<td><i>(Chưa cập nhật)</i></td>
 									</tr>
 								</tbody>
-								<tbody th:if="${product.unitPrices} != null">
-									<tr th:each="unitPrice : ${product.unitPrices}">
-										<td th:text="${unitPrice.customerType.customerType}"></td>
+								<tbody th:if="${product.unitPrice} != null">
+									<tr>
+										<td>Giá bán lẻ</td>
 										<td>
-											<span th:text="${unitPrice.price}"></span>
+											<span th:text="${product.unitPrice.retailPrice}"></span>
+											<span>VNĐ</span>
+										</td>
+									</tr>
+									<tr>
+										<td>Giá Sỉ 5</td>
+										<td>
+											<span th:text="${product.unitPrice.wholesalePrice5}"></span>
+											<span>VNĐ</span>
+										</td>
+									</tr>
+									<tr>
+										<td>Giá Sỉ 5 cùng loại - 12 lộn xộn</td>
+										<td>
+											<span th:text="${product.unitPrice.wholesalePrice512}"></span>
+											<span>VNĐ</span>
+										</td>
+									</tr>
+									<tr>
+										<td>Giá Sỉ 12</td>
+										<td>
+											<span th:text="${product.unitPrice.wholesalePrice12}"></span>
+											<span>VNĐ</span>
+										</td>
+									</tr>
+									<tr>
+										<td>Giá Sỉ 24</td>
+										<td>
+											<span th:text="${product.unitPrice.wholesalePrice24}"></span>
+											<span>VNĐ</span>
+										</td>
+									</tr>
+									<tr>
+										<td>Giá Sỉ 48</td>
+										<td>
+											<span th:text="${product.unitPrice.wholesalePrice48}"></span>
 											<span>VNĐ</span>
 										</td>
 									</tr>

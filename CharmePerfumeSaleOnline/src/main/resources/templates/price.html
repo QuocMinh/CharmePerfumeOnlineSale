@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layout/main-layout-v1">
+<head>
+	<meta charset="UTF-8"/>
+    <title>Bảng giá</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css"/>
+</head>
+<body>
+
+	<ol layout:fragment="link">
+		<li>
+            <a th:href="@{/price}"><i class="glyphicon glyphicon-equalizer"></i> Bảng giá</a>
+        </li>
+	</ol>
+
+	<section layout:fragment="content">
+		<div th:if="${param.success}" class="alert alert-success fade in">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>Thành công!</strong> Sản phẩm <b th:text="${param.success[0]}"></b> đã được tạo mới.
+		</div>
+		<div th:if="${param.deleted}" class="alert alert-success fade in">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>Thành công!</strong> Đã xóa sản phẩm <b th:text="${param.deleted[0]}"></b>.
+		</div>
+		<div th:if="${param.error}" class="alert alert-danger fade in">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>Lỗi!</strong> Sản phẩm <b th:text="${param.error[0]}"></b> đã tồn tại!
+		</div>
+		<div class="table-responsive">
+			<h4>BẢNG GIÁ</h4>
+			<hr/>
+			<table class="table table-info table-striped table-bordered table-condensed">
+				<thead>
+					<tr>
+						<th class="col-sm-1">#</th>
+						<th class="col-sm-3">Tên SP</th>
+						<th class="col-sm-1">Bán lẻ</th>
+						<th class="col-sm-1">Sỉ 5</th>
+						<th class="col-sm-1">5 cùng loại <br/> 12 lộn xộn</th>
+						<th class="col-sm-1">Sỉ 12</th>
+						<th class="col-sm-1">Sỉ 24</th>
+						<th class="col-sm-1">Sỉ 48</th>
+						<th class="col-sm-2">Công cụ</th>
+					</tr>
+				</thead>
+				<tbody>
+					<th:block th:each="product, int : ${products}">
+						<tr th:if="${product.unitPrice} != null">
+							<td class="col-sm-1" th:text="${int.index} + 1" align="center"></td>
+							<td class="col-sm-3" th:text="${product.productName}">Tên SP</td>
+							<td class="col-sm-1" th:text="${product.unitPrice.retailPrice}">Bán lẻ</td>
+							<td class="col-sm-1" th:text="${product.unitPrice.wholesalePrice5}">Sỉ 5</td>
+							<td class="col-sm-1" th:text="${product.unitPrice.wholesalePrice512}">5 cùng loại <br/> 12 lộn xộn</td>
+							<td class="col-sm-1" th:text="${product.unitPrice.wholesalePrice12}">Sỉ 12</td>
+							<td class="col-sm-1" th:text="${product.unitPrice.wholesalePrice24}">Sỉ 24</td>
+							<td class="col-sm-1" th:text="${product.unitPrice.wholesalePrice48}">Sỉ 48</td>
+							<td class="col-sm-2">
+								<a th:href="@{/update-price?id=} + ${product.productId}" class="btn btn-default btn-xs btn-edit">
+									<i class="glyphicon glyphicon-edit"></i>
+								</a> -
+								<a th:href="@{/delete-price?id=} + ${product.productId}" class="btn btn-default btn-xs btn-remove">
+									<i class="glyphicon glyphicon-remove"></i>
+								</a>
+							</td>
+						</tr>
+						<tr th:if="${product.unitPrice} == null">
+							<td th:text="${int.index} + 1" align="center"></td>
+							<td class="col-sm-3" th:text="${product.productName}">Tên SP</td>
+							<td class="col-sm-1">...</td>
+							<td class="col-sm-1">...</td>
+							<td class="col-sm-1">...</td>
+							<td class="col-sm-1">...</td>
+							<td class="col-sm-1">...</td>
+							<td class="col-sm-1">...</td>
+							<td class="col-sm-3">
+								<a th:href="@{/update-price?id=} + ${product.productId}" class="btn btn-default btn-xs btn-edit">
+									<i class="glyphicon glyphicon-edit"></i>
+								</a> -
+								<a th:href="@{/delete-price?id=} + ${product.productId}" class="btn btn-default btn-xs btn-remove">
+									<i class="glyphicon glyphicon-remove"></i>
+								</a>
+							</td>
+						</tr>
+					</th:block>
+				</tbody>
+			</table>
+		</div>
+<!--		
+		<div class="row">
+			<div th:if="${products.totalPages >= 1}"
+				 class="col-md-12 pagination-centered text-align-right">
+				<ul class="pagination">
+					<li th:class="${products.number == 0} ? disabled">
+						<a class="pageLink" th:href="@{/list-product?(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+					</li>
+					<li th:class="${products.number == 0} ? disabled">
+						<a class="pageLink" th:href="@{/list-product?(pageSize=${selectedPageSize}, page=${products.number})}">&larr;</a>
+					</li>
+					<li th:class="${products.number == (page - 1)} ? 'active pointer-disabled'"
+						th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+						<a class="pageLink" th:href="@{/list-product?(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a>
+					</li>
+					<li th:class="${products.number + 1 == products.totalPages} ? disabled">
+						<a class="pageLink" th:href="@{/list-product?(pageSize=${selectedPageSize}, page=${products.number + 2})}">&rarr;</a>
+					</li>
+					<li th:class="${products.number + 1 == products.totalPages} ? disabled">
+						<a class="pageLink" th:href="@{/list-product?(pageSize=${selectedPageSize}, page=${products.totalPages})}">&raquo;</a>
+					</li>
+				</ul>
+			</div>
+		</div>-->
+
+		<span id="menuItem" class="hidden">#price</span>
+	</section>
+
+</body>
+</html>

@@ -1,36 +1,52 @@
 package com.sale.charme.model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 
 public class UnitPrice {
 	
 	@Id
 	private String uniPriceId;
 	
-	@DBRef
-	private CustomerType customerType;
-	private long price;
-	private String decription;
+	private long wholesalePrice5;
+	private long wholesalePrice512;
+	private long wholesalePrice12;
+	private long wholesalePrice24;
+	private long wholesalePrice48;
+	private long retailPrice;
+	
 	
 	public UnitPrice() {
 		super();
 	}
 
-	public UnitPrice(String uniPriceId, CustomerType customerTypeId,
-			long price, String decription) {
+	public UnitPrice(String uniPriceId) {
 		super();
 		this.uniPriceId = uniPriceId;
-		this.customerType = customerTypeId;
-		this.price = price;
-		this.decription = decription;
 	}
 
-	public UnitPrice(CustomerType customerTypeId, long price, String decription) {
+	public UnitPrice(String uniPriceId, long wholesalePrice5,
+			long wholesalePrice512, long wholesalePrice12,
+			long wholesalePrice24, long wholesalePrice48, long retailPrice) {
 		super();
-		this.customerType = customerTypeId;
-		this.price = price;
-		this.decription = decription;
+		this.uniPriceId = uniPriceId;
+		this.wholesalePrice5 = wholesalePrice5;
+		this.wholesalePrice512 = wholesalePrice512;
+		this.wholesalePrice12 = wholesalePrice12;
+		this.wholesalePrice24 = wholesalePrice24;
+		this.wholesalePrice48 = wholesalePrice48;
+		this.retailPrice = retailPrice;
+	}
+
+	public UnitPrice(long wholesalePrice5, long wholesalePrice512,
+			long wholesalePrice12, long wholesalePrice24,
+			long wholesalePrice48, long retailPrice) {
+		super();
+		this.wholesalePrice5 = wholesalePrice5;
+		this.wholesalePrice512 = wholesalePrice512;
+		this.wholesalePrice12 = wholesalePrice12;
+		this.wholesalePrice24 = wholesalePrice24;
+		this.wholesalePrice48 = wholesalePrice48;
+		this.retailPrice = retailPrice;
 	}
 
 	public String getUniPriceId() {
@@ -41,35 +57,63 @@ public class UnitPrice {
 		this.uniPriceId = uniPriceId;
 	}
 
-	public CustomerType getCustomerType() {
-		return customerType;
+	public long getWholesalePrice5() {
+		return wholesalePrice5;
 	}
 
-	public void setCustomerType(CustomerType customerType) {
-		this.customerType = customerType;
+	public void setWholesalePrice5(long wholesalePrice5) {
+		this.wholesalePrice5 = wholesalePrice5;
 	}
 
-	public long getPrice() {
-		return price;
+	public long getWholesalePrice512() {
+		return wholesalePrice512;
 	}
 
-	public void setPrice(long price) {
-		this.price = price;
+	public void setWholesalePrice512(long wholesalePrice512) {
+		this.wholesalePrice512 = wholesalePrice512;
 	}
 
-	public String getDecription() {
-		return decription;
+	public long getWholesalePrice12() {
+		return wholesalePrice12;
 	}
 
-	public void setDecription(String decription) {
-		this.decription = decription;
+	public void setWholesalePrice12(long wholesalePrice12) {
+		this.wholesalePrice12 = wholesalePrice12;
+	}
+
+	public long getWholesalePrice24() {
+		return wholesalePrice24;
+	}
+
+	public void setWholesalePrice24(long wholesalePrice24) {
+		this.wholesalePrice24 = wholesalePrice24;
+	}
+
+	public long getWholesalePrice48() {
+		return wholesalePrice48;
+	}
+
+	public void setWholesalePrice48(long wholesalePrice48) {
+		this.wholesalePrice48 = wholesalePrice48;
+	}
+
+	public long getRetailPrice() {
+		return retailPrice;
+	}
+
+	public void setRetailPrice(long retailPrice) {
+		this.retailPrice = retailPrice;
 	}
 
 	@Override
 	public String toString() {
-		return "UnitPrice [uniPriceId=" + uniPriceId + ", customerTypeId="
-				+ customerType + ", price=" + price + ", decription="
-				+ decription + "]";
+		return "UnitPrice [uniPriceId=" + uniPriceId + ", wholesalePrice5="
+				+ wholesalePrice5 + ", wholesalePrice512=" + wholesalePrice512
+				+ ", wholesalePrice12=" + wholesalePrice12
+				+ ", wholesalePrice24=" + wholesalePrice24
+				+ ", wholesalePrice48=" + wholesalePrice48 + ", retailPrice="
+				+ retailPrice + "]";
 	}
+	
 	
 }

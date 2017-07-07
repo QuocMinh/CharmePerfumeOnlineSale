@@ -123,24 +123,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 		}
 		
 		
-		// UNIT_PRICE
-		if(unitPriceRepository.findByCustomerType("KHLE") == null) {
-			UnitPrice unitPrice = new UnitPrice();
-			unitPrice.setCustomerType(customerTypeRepository.findOne("KHLE"));
-			unitPrice.setPrice(100000);
-			unitPrice.setDecription("Gia ban le");
-			
-			unitPriceRepository.save(unitPrice);
-		}
 		
-		if(unitPriceRepository.findByCustomerType("SI05") == null) {
-			UnitPrice unitPrice = new UnitPrice();
-			unitPrice.setCustomerType(customerTypeRepository.findOne("SI05"));
-			unitPrice.setPrice(50000);
-			unitPrice.setDecription("Gia ban si 5 chai");
-			
-			unitPriceRepository.save(unitPrice);
-		}
 		
 		// PRODUCT_TYPE:
 		if(!productTypeRepository.exists("NHNA")) {
@@ -168,13 +151,28 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			Product product = new Product();
 			product.setProductId("NHCHSO25");
 			product.setProductName("So sexy 25ml");
-			List<UnitPrice> unitPrices = unitPriceRepository.findAll();
-			product.setUnitPrices(unitPrices);
 			ProductType productType = productTypeRepository.findOne("NHNU");
 			product.setProductType(productType);
 			
-			productRepository.save(product);
+			// UNIT_PRICE
+			if(unitPriceRepository.findOne("NHCHSO25") == null) {
+				UnitPrice unitPrice = new UnitPrice("NHCHSO25");
+				
+				unitPrice.setRetailPrice(290000);
+				unitPrice.setWholesalePrice5(170000);
+				unitPrice.setWholesalePrice512(160000);
+				unitPrice.setWholesalePrice12(150000);
+				unitPrice.setWholesalePrice24(130000);
+				unitPrice.setWholesalePrice48(110000);
+				
+				unitPriceRepository.insert(unitPrice);
+				
+				product.setUnitPrice(unitPrice);
+			}
 			
+			productRepository.save(product);
 		}
+		
+		
 	}
 }

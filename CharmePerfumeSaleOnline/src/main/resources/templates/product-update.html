@@ -8,7 +8,6 @@
 	<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css"/>
 </head>
 <body>
-	<h3 layout:fragment="header"> QUẢN LÝ SẢN PHẨM </h3>
 
 	<ol layout:fragment="link">
 		<li>
@@ -22,9 +21,9 @@
 	<section layout:fragment="content">
 		<div th:if="${param.success}" class="alert alert-success fade in">
 			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			<strong>Thành công!</strong> Tài khoản đã được cập nhật.
+			<strong>Thành công!</strong> Sản phẩm đã được cập nhật.
 		</div>
-		<h4>Cập nhật thông tin người dùng</h4>
+		<h4>Cập nhật thông tin sản phẩm</h4>
 		<hr/>
 		<div class="row">
 		  	<div class="col-sm-2">
@@ -74,20 +73,6 @@
 							<td><b>Mô tả:</b></td>
 							<td>
 								<textarea name="decription" rows="5" class="form-control" th:field="*{describe}"></textarea>
-							</td>
-						</tr>
-						<tr>
-							<td><b>Giá sản phẩm:</b></td>
-							<td>
-								<table class="table table-striped">
-									<tr th:each="unitPrice, stat : *{unitPrices}">
-										<td th:text="${unitPrice.customerType.customerType}"></td>
-										<td>
-											<input type="number" th:field="*{unitPrices[__${stat.index}__].price}"/>
-										</td>
-										<td>VNĐ</td>
-									</tr>
-								</table>
 							</td>
 						</tr>
 						<tr>

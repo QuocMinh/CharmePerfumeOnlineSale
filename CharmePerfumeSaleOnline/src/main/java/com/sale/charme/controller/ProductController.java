@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.sale.charme.model.Pager;
 import com.sale.charme.model.Product;
 import com.sale.charme.model.ProductType;
-import com.sale.charme.model.UnitPrice;
 import com.sale.charme.repository.ProductRepository;
 import com.sale.charme.repository.ProductTypeRepository;
 import com.sale.charme.service.Constant;
@@ -95,18 +94,17 @@ public class ProductController {
 	@PostMapping("/update-product")
 	public String handleUpdateProduct(@ModelAttribute("product") Product updatedProduct) {
 		
-		// Get Product Type from db
-		ProductType productType = productTypeRepository.findOne(updatedProduct
-				.getProductType().getProductTypeId());
+		System.out.println(updatedProduct.toString());
 		
-		// Update unit price
-		List<UnitPrice> updatedUnitPrices = productRepository.findOne(updatedProduct.getProductId()).getUnitPrices();
-		
-		updatedProduct.setProductType(productType);
-		
-		productRepository.save(updatedProduct); 
+		productRepository.updateProduct(updatedProduct);
 		
 		return "redirect:/update-product?success&id=" + updatedProduct.getProductId();
+	}
+	
+	public String updatePrice(@RequestParam("id") String id,
+			Model model) {
+		
+		return "update-price";
 	}
 	
 	@GetMapping("/delete-product")

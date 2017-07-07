@@ -1,7 +1,5 @@
 package com.sale.charme.model;
 
-import java.util.List;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -21,36 +19,36 @@ public class Product {
 	private ProductType productType;
 	
 	@DBRef
-	private List<UnitPrice> unitPrices;
+	private UnitPrice unitPrice;
 	
 	public Product() {
 		super();
 	}
 
-	public Product(String productId, String productName,
-			ProductType productType, String unit, float volume,
-			String describe, List<UnitPrice> unitPrices) {
+	public Product(String productId, String productName, String unit,
+			float volume, String describe, ProductType productType,
+			UnitPrice unitPrice) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
-		this.productType = productType;
 		this.unit = unit;
 		this.volume = volume;
 		this.describe = describe;
-		this.unitPrices = unitPrices;
+		this.productType = productType;
+		this.unitPrice = unitPrice;
 	}
 
-	public Product(String productName, ProductType productType, String unit,
-			float volume, String describe, List<UnitPrice> unitPrices) {
+	public Product(String productName, String unit, float volume,
+			String describe, ProductType productType, UnitPrice unitPrice) {
 		super();
 		this.productName = productName;
-		this.productType = productType;
 		this.unit = unit;
 		this.volume = volume;
 		this.describe = describe;
-		this.unitPrices = unitPrices;
+		this.productType = productType;
+		this.unitPrice = unitPrice;
 	}
-	
+
 	public String getProductId() {
 		return productId;
 	}
@@ -99,20 +97,20 @@ public class Product {
 		this.describe = describe;
 	}
 
-	public List<UnitPrice> getUnitPrices() {
-		return unitPrices;
-	}
-
-	public void setUnitPrices(List<UnitPrice> unitPrices) {
-		this.unitPrices = unitPrices;
-	}
-	
 	@Override
 	public String toString() {
 		return "Product [productId=" + productId + ", productName="
-				+ productName + ", productType=" + productType + ", unit="
-				+ unit + ", volume=" + volume + ", describe=" + describe
-				+ ", unitPrices=" + unitPrices + "]";
+				+ productName + ", unit=" + unit + ", volume=" + volume
+				+ ", describe=" + describe + ", productType=" + productType
+				+ ", unitPrice=" + unitPrice + "]";
+	}
+
+	public UnitPrice getUnitPrice() {
+		return unitPrice;
+	}
+
+	public void setUnitPrice(UnitPrice unitPrice) {
+		this.unitPrice = unitPrice;
 	}
 
 }
