@@ -5,13 +5,12 @@
 <head>
 	<meta charset="UTF-8"/>
     <title>Quản lý sản phẩm</title>
-	<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css"/>
 </head>
 <body>
 
 	<ol layout:fragment="link">
 		<li>
-            <a th:href="@{/list-product}"><i class="glyphicon glyphicon-tasks"></i> Quản lý sản phẩm</a>
+            <a th:href="@{/product/list}"><i class="glyphicon glyphicon-tasks"></i> Quản lý sản phẩm</a>
         </li>
         <li>
             <a href="#"><i class="glyphicon glyphicon-edit"></i> Cập nhật thông tin sản phẩm</a>
@@ -30,7 +29,7 @@
 		  		<img th:src="@{\img\photo.jpg.png}" alt="profile image" class="img-rounded img-responsive"/>
 		  	</div>
 		  	<div class="col-sm-7">
-				<form th:action="@{/update-product}" method="post" th:object="${product}">
+				<form th:action="@{/product/update}" method="post" th:object="${product}">
 					<table class="table table-striped">
 						<tr>
 							<td><b>Loại sản phẩm: <span class="required">(*)</span></b></td>

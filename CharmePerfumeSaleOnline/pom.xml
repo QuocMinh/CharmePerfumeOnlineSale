@@ -72,12 +72,14 @@
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity4</artifactId>
         </dependency>
-
+        
+		<!-- 
         <dependency>
         	<groupId>org.apache.shiro</groupId>
         	<artifactId>shiro-web</artifactId>
         	<version>1.2.4</version>
         </dependency>
+        
         <dependency>
         	<groupId>org.apache.geronimo.specs</groupId>
         	<artifactId>geronimo-ejb_3.0_spec</artifactId>
@@ -88,6 +90,7 @@
         	<artifactId>hadoop-core</artifactId>
         	<version>1.0.0</version>
         </dependency>
+         -->
 	</dependencies>
 
 	<build>

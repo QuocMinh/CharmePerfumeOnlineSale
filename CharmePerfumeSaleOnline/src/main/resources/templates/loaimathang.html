@@ -10,7 +10,7 @@
 
 	<ol layout:fragment="link">
 		<li>
-            <a th:href="@{/list-product-type}">
+            <a th:href="@{/product-type/list}">
             	<i class="glyphicon glyphicon-barcode"></i> Quản lý loại sản phẩm
             </a>
         </li>
@@ -50,10 +50,10 @@
 					<td class="col-sm-6" th:if="${productType.decription} == ''"> (Không có mô tả)</td>
 					<td class="col-sm-6" th:if="${productType.decription} != ''" th:text="${productType.decription}"></td>
 					<td class="col-sm-2">
-						<a th:href="@{/update-product-type?id=} + ${productType.productTypeId}" class="btn btn-default btn-xs btn-edit">
+						<a th:href="@{/product-type/__${productType.productTypeId}__/update}" class="btn btn-default btn-xs btn-edit">
 							<i class="glyphicon glyphicon-edit"></i>
 						</a> -
-						<a th:href="@{/delete-product-type?id=} + ${productType.productTypeId}" class="btn btn-default btn-xs btn-remove">
+						<a th:href="@{/product-type/__${productType.productTypeId}__/delete}" class="btn btn-default btn-xs btn-remove">
 							<i class="glyphicon glyphicon-remove"></i>
 						</a>
 					</td>
@@ -64,20 +64,20 @@
 			<div th:if="${productTypes.totalPages >= 1}" class="col-md-12 pagination-centered text-align-right">
 				<ul class="pagination">
 					<li th:class="${productTypes.number == 0} ? disabled">
-						<a class="pageLink" th:href="@{/list-product-type?(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+						<a class="pageLink" th:href="@{/product-type/list?(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
 					</li>
 					<li th:class="${productTypes.number == 0} ? disabled">
-						<a class="pageLink" th:href="@{/list-product-type?(pageSize=${selectedPageSize}, page=${productTypes.number})}">&larr;</a>
+						<a class="pageLink" th:href="@{/product-type/list?(pageSize=${selectedPageSize}, page=${productTypes.number})}">&larr;</a>
 					</li>
 					<li th:class="${productTypes.number == (page - 1)} ? 'active pointer-disabled'"
 						th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
-						<a class="pageLink" th:href="@{/list-product-type?(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a>
+						<a class="pageLink" th:href="@{/product-type/list?(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a>
 					</li>
 					<li th:class="${productTypes.number + 1 == productTypes.totalPages} ? disabled">
-						<a class="pageLink" th:href="@{/list-product-type?(pageSize=${selectedPageSize}, page=${productTypes.number + 2})}">&rarr;</a>
+						<a class="pageLink" th:href="@{/product-type/list?(pageSize=${selectedPageSize}, page=${productTypes.number + 2})}">&rarr;</a>
 					</li>
 					<li th:class="${productTypes.number + 1 == productTypes.totalPages} ? disabled">
-						<a class="pageLink" th:href="@{/list-product-type?(pageSize=${selectedPageSize}, page=${productTypes.totalPages})}">&raquo;</a>
+						<a class="pageLink" th:href="@{/product-type/list?(pageSize=${selectedPageSize}, page=${productTypes.totalPages})}">&raquo;</a>
 					</li>
 				</ul>
 			</div>
@@ -89,7 +89,7 @@
 				  	<div class="panel-heading">THÊM MỚI</div>
 				  	<div class="panel-body">
 				  		<div class="container-fluid">
-							<form th:action="@{/create-product-type}" class="form-horizontal"
+							<form th:action="@{/product-type/create}" class="form-horizontal"
 								  th:method="post" th:object="${newProductType}">
 								<div class="form-group">
 									<label for="productTypeId">Mã Loại: <span class="required">(*)</span></label>

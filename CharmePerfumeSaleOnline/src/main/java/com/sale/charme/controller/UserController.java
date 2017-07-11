@@ -11,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sale.charme.model.Pager;
@@ -22,6 +24,7 @@ import com.sale.charme.repository.UserRepository;
 import com.sale.charme.service.Constant;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
 	
 	@Autowired
@@ -33,7 +36,7 @@ public class UserController {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
-	@GetMapping("/admin")
+	@GetMapping("/list")
 	public String showUserPage(Model model, 
 			@ModelAttribute User user,
 			@RequestParam("pageSize") Optional<Integer> pageSize,
@@ -56,9 +59,8 @@ public class UserController {
 		return "user";
 	}
 	
-	@GetMapping("/view-user")
-	public String showUserDetails(Model model,
-			@RequestParam("username") String username) {
+	@GetMapping("/{username}/details")
+	public String showUserDetails(Model model, @PathVariable String username) {
 		User user = userRepository.findOne(username);
 		
 		model.addAttribute("user", user);
@@ -66,20 +68,20 @@ public class UserController {
 		return "user-details";
 	}
 
-	@PostMapping("/create-user")
+	@PostMapping("/create")
 	public String createUser(@ModelAttribute User user) {
 		
 		if(!userRepository.exists(user.getUsername())) {
 			userRepository.insert(user); // save user to DB
 			
-			return "redirect:/admin?success=" + user.getUsername();
+			return "redirect:/user/list?success";
 		}
 		
-		return "redirect:/admin?error=" + user.getUsername();
+		return "redirect:/user/list?error";
 	}
 	
-	@GetMapping("/update-user")
-	public String updateUser(Model model, @RequestParam("username") String username) {
+	@GetMapping("/{username}/update")
+	public String updateUser(Model model, @PathVariable String username) {
 		User user = userRepository.findOne(username); // Get user by username on DB
 		
 		model.addAttribute("user", user); // Send user to view
@@ -88,7 +90,7 @@ public class UserController {
 		return "user-update";
 	}
 	
-	@PostMapping("/update-user")
+	@PostMapping("/update")
 	public String handleUpdateUser(Model model,
 			@ModelAttribute("user") User user,
 			@RequestParam("dob") String dob) {
@@ -99,14 +101,14 @@ public class UserController {
 		
 		model.addAttribute("success", user.getUsername());
 		
-		return "redirect:/update-user?username=" + user.getUsername() + "&success";
+		return "redirect:/user/" + user.getUsername() + "/update?success";
 	}
 	
-	@GetMapping("/delete-user")
-	public String deleteUser(@RequestParam("username") String username) {
+	@GetMapping("/{username}/delete")
+	public String deleteUser(Model model, @PathVariable String username) {
 		userRepository.delete(username);
 		
-		return "redirect:/admin?deleted=" + username;
+		return "redirect:/user/list?deleted=" + username;
 	}
 	
 	

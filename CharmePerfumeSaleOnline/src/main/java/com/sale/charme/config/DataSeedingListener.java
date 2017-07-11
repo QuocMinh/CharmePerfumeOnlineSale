@@ -60,8 +60,8 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 		if(roleRepository.findOne(Constant.ROLE_ADMIN) == null) {
 			roleRepository.save(new Role(Constant.ROLE_ADMIN,
 					Constant.ROLE_ADMIN_DETAIL));
-			
-		}if(roleRepository.findOne(Constant.ROLE_MEMBER) == null) {
+		}
+		if(roleRepository.findOne(Constant.ROLE_MEMBER) == null) {
 			roleRepository.save(new Role(Constant.ROLE_MEMBER,
 					Constant.ROLE_MEMBER_DETAIL));
 		}

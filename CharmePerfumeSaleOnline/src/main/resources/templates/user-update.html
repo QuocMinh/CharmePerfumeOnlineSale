@@ -11,10 +11,10 @@
 
 	<ol layout:fragment="link">
 		<li>
-            <a th:href="@{/admin}"><i class="glyphicon glyphicon-user"></i> Quản lý Người dùng</a>
+            <a th:href="@{/user/list}"><i class="glyphicon glyphicon-user"></i> Quản lý Người dùng</a>
         </li>
         <li>
-            <a th:href="@{/admin}"><i class="glyphicon glyphicon-edit"></i> Cập nhật thông tin Người dùng</a>
+            <a href="#"><i class="glyphicon glyphicon-edit"></i> Cập nhật thông tin Người dùng</a>
         </li>
 	</ol>
 
@@ -31,7 +31,7 @@
 		  	</div>
 		  	<div class="col-sm-7">
 		  		<div class="container-fluid">
-					<form class="form-horizontal" th:action="@{/update-user}" th:method="post"
+					<form class="form-horizontal" th:action="@{/user/update}" th:method="post"
 						  th:object="${user}">
 						<div class="form-group">
 						  	<label for="username" class="control-label col-sm-5"> Tài khoản: </label>

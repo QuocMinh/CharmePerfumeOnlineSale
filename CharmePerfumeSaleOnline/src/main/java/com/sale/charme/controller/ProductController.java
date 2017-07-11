@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sale.charme.model.Pager;
@@ -21,6 +23,7 @@ import com.sale.charme.repository.ProductTypeRepository;
 import com.sale.charme.service.Constant;
 
 @Controller
+@RequestMapping("/product")
 public class ProductController {
 	
 	@Autowired
@@ -29,7 +32,7 @@ public class ProductController {
 	@Autowired
 	ProductTypeRepository productTypeRepository;
 	
-	@GetMapping("/list-product")
+	@GetMapping("/list")
 	public String showPage(Model model,
 			@RequestParam("pageSize") Optional<Integer> pageSize,
 			@RequestParam("page") Optional<Integer> page) {
@@ -74,12 +77,12 @@ public class ProductController {
 		return "redirect:/list-product?error=" + newProductId;
 	}
 	
-	@GetMapping("/update-product")
+	@GetMapping("/{productId}/update")
 	public String udpateProduct(Model model,
-			@RequestParam("id") String id) {
+			@PathVariable String productId) {
 		
 		// Find product by id
-		Product product = productRepository.findOne(id);
+		Product product = productRepository.findOne(productId);
 		
 		// Find all product type
 		List<ProductType> productTypes = productTypeRepository.findAll();
@@ -91,7 +94,7 @@ public class ProductController {
 		return "product-update";
 	}
 	
-	@PostMapping("/update-product")
+	@PostMapping("/update")
 	public String handleUpdateProduct(@ModelAttribute("product") Product updatedProduct) {
 		
 		System.out.println(updatedProduct.toString());
@@ -115,9 +118,9 @@ public class ProductController {
 		return "redirect:/list-product?deleted=" + id;
 	}
 	
-	@GetMapping("/view-product")
+	@GetMapping("/{productId}/view")
 	public String viewProductDetails(Model model,
-			@RequestParam("id") String productId) {
+			@PathVariable String productId) {
 		
 		// Find and send product to view with request id
 		model.addAttribute("product", productRepository.findOne(productId));

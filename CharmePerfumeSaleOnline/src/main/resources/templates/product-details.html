@@ -5,12 +5,11 @@
 <head>
 	<meta charset="UTF-8"/>
     <title>Quản lý sản phẩm</title>
-	<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css"/>
 </head>
 <body>
 	<ol layout:fragment="link">
 		<li>
-            <a th:href="@{/list-product}"><i class="glyphicon glyphicon-tasks"></i> Quản lý sản phẩm</a>
+            <a th:href="@{/product/list}"><i class="glyphicon glyphicon-tasks"></i> Quản lý sản phẩm</a>
         </li>
         <li>
             <a href="#"><i class="glyphicon glyphicon-eye-open"></i> Thông tin sản phẩm</a>
@@ -22,7 +21,7 @@
 		<hr/>
 		<div class="row">
 		  	<div class="col-sm-4">
-		  		<img th:src="@{\img\photo.jpg.png}" alt="profile image" class="img-rounded img-responsive"/>
+		  		<img src="\img\photo.jpg.png" class="img-rounded img-responsive"/>
 		  	</div>
 		  	<div class="col-sm-8">
 				<table class="table table-striped">
@@ -127,9 +126,9 @@
 						</td>
 					</tr>
 				</table>
-				<a th:href="@{/update-product?id=} + ${product.productId}" class="btn btn-default">
+				<a th:href="@{/product/__${product.productId}__/update}" class="btn btn-default">
 					<i class="glyphicon glyphicon-edit btn-edit"></i> Cập nhật</a>
-				<a th:href="@{/delete-product?id=} + ${product.productId}"  class="btn btn-default">
+				<a th:href="@{/product/__${product.productId}__/delete}"  class="btn btn-default">
 					<i class="glyphicon glyphicon-remove btn-remove"></i> Xóa</a>
 		  	</div>
 		</div>

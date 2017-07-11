@@ -11,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sale.charme.model.ProductType;
@@ -19,6 +21,7 @@ import com.sale.charme.model.Pager;
 import com.sale.charme.repository.ProductTypeRepository;
 
 @Controller
+@RequestMapping("/product-type")
 public class ProductTypeController {
 	
 	private static final int BUTTONS_TO_SHOW = 5;
@@ -31,7 +34,7 @@ public class ProductTypeController {
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@GetMapping("/list-product-type")
+	@GetMapping("/list")
 	public String showAll(Model model,
 			@RequestParam("pageSize") Optional<Integer> pageSize,
 			@RequestParam("page") Optional<Integer> page) {
@@ -58,7 +61,7 @@ public class ProductTypeController {
 		return "loaimathang";
 	}
 	
-	@PostMapping("/create-product-type")
+	@PostMapping("/create")
 	public String createProductType(
 			@ModelAttribute("newProductType") ProductType newProductType) {
 		
@@ -67,39 +70,39 @@ public class ProductTypeController {
 		if(!productTypeRepository.exists(newProductTypeId)) {
 			productTypeRepository.insert(newProductType);
 			
-			return "redirect:/list-product-type?success=" + newProductTypeId;
+			return "redirect:/product-type/list?success=" + newProductTypeId;
 		}
 		
-		return "redirect:/list-product-type?error=" + newProductTypeId;
+		return "redirect:/product-type/list?error=" + newProductTypeId;
 	}
 	
-	@GetMapping("/update-product-type")
+	@GetMapping("/{id}/update")
 	public String updateProductType(Model model,
-			@RequestParam("id") String productTypeId) {
+			@PathVariable String id) {
 		
 		// Get product type from DB by product type id
-		ProductType productType = productTypeRepository.findOne(productTypeId); 
+		ProductType productType = productTypeRepository.findOne(id); 
 		
 		model.addAttribute("productType", productType);
 		
 		return "product-type-update";
 	}
 	
-	@PostMapping("/update-product-type")
+	@PostMapping("/update")
 	public String handleUpdate(@ModelAttribute ProductType productType) {
 		
 		productTypeRepository.save(productType);
 		
-		return "redirect:/update-product-type?id=" + productType.getProductTypeId() + "&success";
+		return "redirect:/product-type/" + productType.getProductTypeId() + "/update?success";
 	}
 	
 	
-	@GetMapping("/delete-product-type")
-	public String handleDelete(@RequestParam("id") String id) {
+	@GetMapping("/{id}/delete")
+	public String handleDelete(@PathVariable String id) {
 		
 		productTypeRepository.delete(id);
 		
-		return "redirect:/list-product-type?deleted=" + id;
+		return "redirect:/product-type/list?deleted=" + id;
 	}
 	
 }

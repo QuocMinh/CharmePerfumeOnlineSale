@@ -9,7 +9,7 @@
 <body>
 	<ol layout:fragment="link">
 		<li>
-            <a th:href="@{/list-product}"><i class="glyphicon glyphicon-tasks"></i> Quản lý sản phẩm</a>
+            <a th:href="@{/product/list}"><i class="glyphicon glyphicon-tasks"></i> Quản lý sản phẩm</a>
         </li>
 	</ol>
 
@@ -49,16 +49,16 @@
 						<td class="col-sm-4" th:if="${product.describe} == ''">(Không có mô tả)</td>
 						<td class="col-sm-3" th:if="${product.describe} != ''" th:text="${product.describe}"></td>
 						<td class="col-sm-3">
-							<a th:href="@{/view-product?id=} + ${product.productId}" class="btn btn-default btn-xs btn-view">
+							<a th:href="@{/product/__${product.productId}__/view}" class="btn btn-default btn-xs btn-view">
 								<i class="glyphicon glyphicon-eye-open"></i>
 							</a> -
-							<a th:href="@{/update-product?id=} + ${product.productId}" class="btn btn-default btn-xs btn-edit">
+							<a th:href="@{/product/__${product.productId}__/update}" class="btn btn-default btn-xs btn-edit">
 								<i class="glyphicon glyphicon-edit"></i>
 							</a> -
-							<a th:href="@{/update-price?id=} + ${product.productId}" class="btn btn-default btn-xs btn-price">
+							<a th:href="@{/product/__${product.productId}__/view}" class="btn btn-default btn-xs btn-price">
 								<i class="glyphicon glyphicon-equalizer"></i>
 							</a> -
-							<a th:href="@{/delete-product?id=} + ${product.productId}" class="btn btn-default btn-xs btn-remove">
+							<a th:href="@{/product/__${product.productId}__/delete}" class="btn btn-default btn-xs btn-remove">
 								<i class="glyphicon glyphicon-remove"></i>
 							</a>
 						</td>

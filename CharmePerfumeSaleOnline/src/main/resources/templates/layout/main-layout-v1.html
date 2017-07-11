@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 
     <!-- Custom CSS -->
-    <link href="css/sb-admin.css" rel="stylesheet"/>
-    <link href="css/main.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+	<link rel="stylesheet" href="/css/sb-admin.css"/>
 </head>
 <body>
 	<div id="wrapper">
@@ -74,15 +74,15 @@
                         </ul>
                     </li>
                     <li id="productType">
-                        <a th:href="@{/list-product-type}">
+                        <a th:href="@{/product-type/list}">
                         	<i class="glyphicon glyphicon-barcode"></i> Quản lý Loại sản phẩm
                         </a>
                     </li>
                     <li id="product">
-                        <a th:href="@{/list-product}"><i class="glyphicon glyphicon-tasks"></i> Quản lý Sản phẩm</a>
+                        <a th:href="@{/product/list}"><i class="glyphicon glyphicon-tasks"></i> Quản lý Sản phẩm</a>
                     </li>
                     <li>
-                        <a th:href="@{/list-product}"><i class="glyphicon glyphicon-plane"></i> Quản lý Nhà cung cấp</a>
+                        <a th:href="@{/product/list}"><i class="glyphicon glyphicon-plane"></i> Quản lý Nhà cung cấp</a>
                     </li>
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#customer">
@@ -121,7 +121,7 @@
                         <a th:href="@{/price}"><i class="glyphicon glyphicon-equalizer"></i> Bảng giá</a>
                     </li>
                     <li id="user">
-                        <a th:href="@{/admin}"><i class="glyphicon glyphicon-user"></i> Quản lý Người dùng</a>
+                        <a th:href="@{/user/list}"><i class="glyphicon glyphicon-user"></i> Quản lý Người dùng</a>
                     </li>
                 </ul>
             </div>

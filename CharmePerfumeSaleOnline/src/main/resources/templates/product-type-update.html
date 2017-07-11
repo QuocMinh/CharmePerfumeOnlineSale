@@ -5,12 +5,11 @@
 <head>
 	<meta charset="UTF-8"/>
     <title>Quản lý loại sản phẩm</title>
-	<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css"/>
 </head>
 <body>
 	<ol layout:fragment="link">
 		<li>
-            <a th:href="@{/list-product-type}"><i class="glyphicon glyphicon-equalizer"></i> Quản lý Loại sản phẩm</a>
+            <a th:href="@{/product-type/list}"><i class="glyphicon glyphicon-equalizer"></i> Quản lý Loại sản phẩm</a>
         </li>
 		<li>
             <a href="#"><i class="glyphicon glyphicon-edit"></i> Cập nhật thông tin loại sản phẩm</a>
@@ -26,7 +25,7 @@
 		</div>
 		<div class="row">
 		  	<div class="col-sm-7">
-				<form th:action="@{/update-product-type}" th:method="post"
+				<form th:action="@{/product-type/update}" th:method="post"
 					  th:object="${productType}">
 					<table class="table table-striped">
   						<tr>
