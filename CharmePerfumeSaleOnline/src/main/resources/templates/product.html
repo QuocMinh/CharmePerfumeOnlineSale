@@ -4,101 +4,157 @@
 	  layout:decorator="layout/main-layout-v1">
 <head>
 	<meta charset="UTF-8"/>
-    <title>Danh sách các loại mặt hàng</title>
+    <title>Quản lý sản phẩm</title>
 	<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css"/>
 </head>
 <body>
-	<h1 layout:fragment="header">
-		QUẢN LÝ MẶT HÀNG
-	</h1>
-	
+	<h3 layout:fragment="header"> QUẢN LÝ SẢN PHẨM </h3>
+
 	<ol layout:fragment="link">
 		<li>
-            <a th:href="@{/list-product}"><i class="glyphicon glyphicon-tasks"></i> Quản lý mặt hàng</a>
+            <a th:href="@{/list-product}"><i class="glyphicon glyphicon-tasks"></i> Quản lý sản phẩm</a>
         </li>
 	</ol>
 
 	<section layout:fragment="content">
-		<div class="panel panel-primary">
-		  	<div class="panel-heading">DANH SÁCH MẶT HÀNG</div>
-		  	<div class="panel-body">
-		  		<div class="table-responsive">
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th class="">#</th>
-								<th class="col-sm-1">Mã SP</th>
-								<th class="col-sm-3">Tên SP</th>
-								<th class="col-sm-2">Loại SP</th>
-								<th class="col-sm-4">Mô tả</th>
-								<th class="col-sm-2">Công cụ</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="product, int : ${products}" class="clickable">
-								<td class="" th:text="${int.index + 1}"></td>
-								<td class="col-sm-1" th:text="${product.productId}"></td>
-								<td class="col-sm-2" th:text="${product.productName}"></td>
-								<td class="col-sm-3" th:text="${product.productType.moTa}"></td>
-								<td class="col-sm-4" th:if="${product.describe} == ''">(Không có mô tả)</td>
-								<td class="col-sm-4" th:if="${product.describe} != ''" th:text="${product.describe}"></td>
-								<td class="col-sm-2">
-									<a>Sửa</a> -
-									<a>Xóa</a>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="row">
-					<div class="form-group col-md-2">
-						<select class="form-control pagination" id="pageSizeSelect">
-							<option th:each="pageSize : ${pageSizes}" th:text="${pageSize}" 
-									th:value="${pageSize}" th:selected="${pageSize} == ${selectedPageSize}">
-							</option>
-						</select>
-					</div>
-					<div th:if="${products.totalPages >= 1}" 
-						 class="form-group col-md-10 pagination-centered text-align-right">
-						<ul class="pagination">
-							<li th:class="${products.number == 0} ? disabled">
-								<a class="pageLink" th:href="@{/list-product-type?(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
-							</li>
-							<li th:class="${products.number == 0} ? disabled">
-								<a class="pageLink" th:href="@{/list-product-type?(pageSize=${selectedPageSize}, page=${products.number})}">&larr;</a>
-							</li>
-							<li th:class="${products.number == (page - 1)} ? 'active pointer-disabled'"
-								th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
-								<a class="pageLink" th:href="@{/list-product-type?(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a>
-							</li>
-							<li th:class="${products.number + 1 == products.totalPages} ? disabled">
-								<a class="pageLink" th:href="@{/list-product-type?(pageSize=${selectedPageSize}, page=${products.number + 2})}">&rarr;</a>
-							</li>
-							<li th:class="${products.number + 1 == products.totalPages} ? disabled">
-								<a class="pageLink" th:href="@{/list-product-type?(pageSize=${selectedPageSize}, page=${products.totalPages})}">&raquo;</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-		  	</div>
+		<div th:if="${param.success}" class="alert alert-success fade in">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>Thành công!</strong> Sản phẩm <b th:text="${param.success[0]}"></b> đã được tạo mới.
+		</div>
+		<div th:if="${param.deleted}" class="alert alert-success fade in">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>Thành công!</strong> Đã xóa sản phẩm <b th:text="${param.deleted[0]}"></b>.
+		</div>
+		<div th:if="${param.error}" class="alert alert-danger fade in">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>Lỗi!</strong> Sản phẩm <b th:text="${param.error[0]}"></b> đã tồn tại!
+		</div>
+		<div class="table-responsive">
+			<h4>DANH SÁCH SẢN PHẨM</h4>
+			<hr/>
+			<table class="table table-info table-striped table-bordered table-condensed">
+				<thead>
+					<tr>
+						<th class="">#</th>
+						<th class="col-sm-1">Mã SP</th>
+						<th class="col-sm-2">Tên SP</th>
+						<th class="col-sm-2">Loại SP</th>
+						<th class="col-sm-4">Mô tả</th>
+						<th class="col-sm-3">Công cụ</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="product, int : ${products}" class="clickable">
+						<td class="" th:text="${int.index + 1}"></td>
+						<td class="col-sm-1" th:text="${product.productId}"></td>
+						<td class="col-sm-2" th:text="${product.productName}"></td>
+						<td class="col-sm-3" th:text="${product.productType.productTypeName}"></td>
+						<td class="col-sm-4" th:if="${product.describe} == ''">(Không có mô tả)</td>
+						<td class="col-sm-3" th:if="${product.describe} != ''" th:text="${product.describe}"></td>
+						<td class="col-sm-3">
+							<a th:href="@{/view-product?id=} + ${product.productId}" class="btn btn-default btn-xs btn-view">
+								<i class="glyphicon glyphicon-eye-open"></i>
+							</a> -
+							<a th:href="@{/update-product?id=} + ${product.productId}" class="btn btn-default btn-xs btn-edit">
+								<i class="glyphicon glyphicon-edit"></i>
+							</a> -
+							<a th:href="@{/delete-product?id=} + ${product.productId}" class="btn btn-default btn-xs btn-remove">
+								<i class="glyphicon glyphicon-remove"></i>
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 		<div class="row">
-			<div class="col-sm-6">
+			<div th:if="${products.totalPages >= 1}"
+				 class="col-md-12 pagination-centered text-align-right">
+				<ul class="pagination">
+					<li th:class="${products.number == 0} ? disabled">
+						<a class="pageLink" th:href="@{/list-product?(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+					</li>
+					<li th:class="${products.number == 0} ? disabled">
+						<a class="pageLink" th:href="@{/list-product?(pageSize=${selectedPageSize}, page=${products.number})}">&larr;</a>
+					</li>
+					<li th:class="${products.number == (page - 1)} ? 'active pointer-disabled'"
+						th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+						<a class="pageLink" th:href="@{/list-product?(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a>
+					</li>
+					<li th:class="${products.number + 1 == products.totalPages} ? disabled">
+						<a class="pageLink" th:href="@{/list-product?(pageSize=${selectedPageSize}, page=${products.number + 2})}">&rarr;</a>
+					</li>
+					<li th:class="${products.number + 1 == products.totalPages} ? disabled">
+						<a class="pageLink" th:href="@{/list-product?(pageSize=${selectedPageSize}, page=${products.totalPages})}">&raquo;</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<hr/>
+		<div class="row">
+			<div class="col-sm-8">
 				<div class="panel panel-success">
-				  	<div class="panel-heading">THÊM/CẬP NHẬT</div>
+				  	<div class="panel-heading">THÊM MỚI</div>
 				  	<div class="panel-body">
-				  		<div class="container-fluid">
-							<form th:action="@{/update-product}" class="form-horizontal"
-								  th:method="post" th:object="${productNew}">
-								  
-								<!-- do something -->
-								
-							</form>
-						</div>
+						<form th:action="@{/create-product}" th:method="post" th:object="${newProduct}">
+							<div class="table-responsive">
+								<table class="table table-striped">
+									<tr>
+										<td><b>Loại sản phẩm: <span class="required">(*)</span></b></td>
+										<td>
+											<select class="form-control" th:field="*{productType.productTypeId}">
+												<option th:each="productType : ${productTypes}"
+														th:value="${productType.productTypeId}"
+														th:text="${productType.productTypeId} + '&emsp;-&emsp;' + ${productType.productTypeName}"></option>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td><b>Mã sản phẩm: <span class="required">(*)</span></b></td>
+										<td>
+											<input type="text" class="form-control" th:field="*{productId}"/>
+										</td>
+									</tr>
+									<tr>
+										<td><b>Tên sản phẩm: <span class="required">(*)</span></b></td>
+										<td>
+											<input type="text" class="form-control" th:field="*{productName}"/>
+										</td>
+									</tr>
+									<tr>
+										<td><b>Đơn vị tính:</b></td>
+										<td>
+											<select class="form-control" th:field="*{unit}">
+												<option value="Chai">Chai</option>
+												<option value="">---- Khác ----</option>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td><b>Khối lượng / Thể tích: <span class="required">(*)</span></b></td>
+										<td>
+											<input type="number" class="form-control" th:field="*{volume}"/>
+										</td>
+									</tr>
+									<tr>
+										<td><b>Mô tả:</b></td>
+										<td>
+											<textarea name="decription" rows="5" class="form-control" th:field="*{describe}"></textarea>
+										</td>
+									</tr>
+									<tr>
+										<td><b></b></td>
+										<td>
+											<button type="submit" class="btn btn-primary">Thêm mới</button>
+											<button type="reset" class="btn btn-warning" id="btnReset">Làm mới</button>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</form>
 				  	</div>
 				</div>
 			</div>
-			<div class="col-sm-6">
+			<div class="col-sm-4">
 				<div class="panel panel-warning">
 				  	<div class="panel-heading">CHÚ THÍCH</div>
 				  	<div class="panel-body">
@@ -107,8 +163,10 @@
 				</div>
 			</div>
 		</div>
+
+		<span id="menuItem" class="hidden">#product</span>
 	</section>
-	
+
 	<script th:src="@{/js/loaimathang.js}" charset="utf-8"></script>
 </body>
 </html>

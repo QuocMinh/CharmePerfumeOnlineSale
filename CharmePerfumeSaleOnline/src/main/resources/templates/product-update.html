@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layout/main-layout-v1">
+<head>
+	<meta charset="UTF-8"/>
+    <title>Quản lý sản phẩm</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css"/>
+</head>
+<body>
+	<h3 layout:fragment="header"> QUẢN LÝ SẢN PHẨM </h3>
+
+	<ol layout:fragment="link">
+		<li>
+            <a th:href="@{/list-product}"><i class="glyphicon glyphicon-tasks"></i> Quản lý sản phẩm</a>
+        </li>
+        <li>
+            <a href="#"><i class="glyphicon glyphicon-edit"></i> Cập nhật thông tin sản phẩm</a>
+        </li>
+	</ol>
+
+	<section layout:fragment="content">
+		<div th:if="${param.success}" class="alert alert-success fade in">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>Thành công!</strong> Tài khoản đã được cập nhật.
+		</div>
+		<h4>Cập nhật thông tin người dùng</h4>
+		<hr/>
+		<div class="row">
+		  	<div class="col-sm-2">
+		  		<img th:src="@{\img\photo.jpg.png}" alt="profile image" class="img-rounded img-responsive"/>
+		  	</div>
+		  	<div class="col-sm-7">
+				<form th:action="@{/update-product}" method="post" th:object="${product}">
+					<table class="table table-striped">
+						<tr>
+							<td><b>Loại sản phẩm: <span class="required">(*)</span></b></td>
+							<td>
+								<select class="form-control" th:field="*{productType.productTypeId}">
+									<option th:each="productType : ${productTypes}"
+											th:value="${productType.productTypeId}"
+											th:text="${productType.productTypeId} + '&emsp;-&emsp;' + ${productType.productTypeName}"></option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td><b>Mã sản phẩm:</b></td>
+							<td>
+								<input type="text" class="form-control disabled" th:field="*{productId}"/>
+							</td>
+						</tr>
+						<tr>
+							<td><b>Tên sản phẩm: <span class="required">(*)</span></b></td>
+							<td>
+								<input type="text" class="form-control" th:field="*{productName}"/>
+							</td>
+						</tr>
+						<tr>
+							<td><b>Đơn vị tính:</b></td>
+							<td>
+								<select class="form-control" th:field="*{unit}">
+									<option value="Chai">Chai</option>
+									<option value="">---- Khác ----</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td><b>Khối lượng / Thể tích: <span class="required">(*)</span></b></td>
+							<td>
+								<input type="number" class="form-control" th:field="*{volume}"/>
+							</td>
+						</tr>
+						<tr>
+							<td><b>Mô tả:</b></td>
+							<td>
+								<textarea name="decription" rows="5" class="form-control" th:field="*{describe}"></textarea>
+							</td>
+						</tr>
+						<tr>
+							<td><b>Giá sản phẩm:</b></td>
+							<td>
+								<table class="table table-striped">
+									<tr th:each="unitPrice, stat : *{unitPrices}">
+										<td th:text="${unitPrice.customerType.customerType}"></td>
+										<td>
+											<input type="number" th:field="*{unitPrices[__${stat.index}__].price}"/>
+										</td>
+										<td>VNĐ</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr>
+							<td><b></b></td>
+							<td>
+								<button type="submit" class="btn btn-primary">Cập nhật</button>
+								<button type="reset" class="btn btn-warning" id="btnReset">Quay về mặc định</button>
+							</td>
+						</tr>
+					</table>
+				</form>
+		  	</div>
+			<div class="col-sm-3">
+				<div class="panel panel-warning">
+				  	<div class="panel-heading">CHÚ THÍCH</div>
+				  	<div class="panel-body">
+				  		Text here
+				  	</div>
+				</div>
+			</div>
+		</div>
+
+		<span id="menuItem" class="hidden">#product</span>
+	</section>
+</body>
+</html>

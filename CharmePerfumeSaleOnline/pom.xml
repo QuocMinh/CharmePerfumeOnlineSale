@@ -78,6 +78,16 @@
         	<artifactId>shiro-web</artifactId>
         	<version>1.2.4</version>
         </dependency>
+        <dependency>
+        	<groupId>org.apache.geronimo.specs</groupId>
+        	<artifactId>geronimo-ejb_3.0_spec</artifactId>
+        	<version>1.0.1</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.apache.hadoop</groupId>
+        	<artifactId>hadoop-core</artifactId>
+        	<version>1.0.0</version>
+        </dependency>
 	</dependencies>
 
 	<build>

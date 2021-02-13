@@ -1,6 +1,5 @@
 package com.sale.charme.service;
 
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -23,7 +22,7 @@ public class UnitPriceRepositoryImpl implements UnitPriceRepositoryCustom {
 					.where("customerType.$ref")
 					.is("customerType")
 					.and("customerType.$id")
-					.is(new ObjectId(customerTypeId))
+					.is(customerTypeId)
 				);
 		
 		UnitPrice unitPrice = template.findOne(query, UnitPrice.class);

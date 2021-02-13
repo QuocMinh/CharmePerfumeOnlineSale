@@ -9,6 +9,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.sale.charme.model.Address;
 import com.sale.charme.model.Customer;
 import com.sale.charme.model.CustomerType;
 import com.sale.charme.model.Product;
@@ -16,6 +17,7 @@ import com.sale.charme.model.ProductType;
 import com.sale.charme.model.Role;
 import com.sale.charme.model.UnitPrice;
 import com.sale.charme.model.User;
+import com.sale.charme.model.UserDetail;
 import com.sale.charme.repository.CustomerRepository;
 import com.sale.charme.repository.CustomerTypeRepository;
 import com.sale.charme.repository.ProductRepository;
@@ -74,6 +76,14 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			roles.add(roleRepository.findByRoleName(Constant.ROLE_MEMBER));
 			admin.setUserRole(roles);
 			
+			// User Details
+			UserDetail userDetail = new UserDetail();
+			userDetail.setFullName("Chau Quoc Minh");
+			userDetail.setAddress(new Address("37", "Tra Khua", "Long Thanh", "Vinh Loi", "Bac Lieu"));
+			userDetail.setPhone("0123 94 96 986");
+			
+			admin.setUserDetail(userDetail);
+			
 			userRepository.save(admin);
 		}
 		
@@ -85,16 +95,17 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			List<Role> roles = new ArrayList<Role>();
 			roles.add(roleRepository.findByRoleName(Constant.ROLE_MEMBER));
 			member.setUserRole(roles);
+			member.setUserDetail(new UserDetail());
 			
 			userRepository.save(member);
 		}
 		
 		// CUSTOMER_TYPE:
-		if(customerTypeRepository.findByCustomerType("LE") == null) {
-			customerTypeRepository.save(new CustomerType("LE", "Khach ban le"));
+		if(customerTypeRepository.findOne("KHLE") == null) {
+			customerTypeRepository.save(new CustomerType("KHLE", "Khách bán lẻ", null));
 		}
-		if(customerTypeRepository.findByCustomerType("SI") == null) {
-			customerTypeRepository.save(new CustomerType("SI", "Khach ban si"));
+		if(customerTypeRepository.findOne("SI05") == null) {
+			customerTypeRepository.save(new CustomerType("SI05", "Khách sỉ 5", "Khách lấy sỉ 5 chai"));
 		}
 		
 		// CUSTOMER:
@@ -111,25 +122,45 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			customerRepository.save(customer);
 		}
 		
+		
 		// UNIT_PRICE
-		CustomerType customerType = customerTypeRepository.findByCustomerType("LE");
-		if(unitPriceRepository.findByCustomerType(customerType.getCustomerTypeId()) == null) {
+		if(unitPriceRepository.findByCustomerType("KHLE") == null) {
 			UnitPrice unitPrice = new UnitPrice();
-			unitPrice.setCustomerType(customerType);
+			unitPrice.setCustomerType(customerTypeRepository.findOne("KHLE"));
 			unitPrice.setPrice(100000);
 			unitPrice.setDecription("Gia ban le");
 			
 			unitPriceRepository.save(unitPrice);
 		}
 		
-		customerType = customerTypeRepository.findByCustomerType("SI");
-		if(unitPriceRepository.findByCustomerType(customerType.getCustomerTypeId()) == null) {
+		if(unitPriceRepository.findByCustomerType("SI05") == null) {
 			UnitPrice unitPrice = new UnitPrice();
-			unitPrice.setCustomerType(customerType);
+			unitPrice.setCustomerType(customerTypeRepository.findOne("SI05"));
 			unitPrice.setPrice(50000);
-			unitPrice.setDecription("Gia ban si");
+			unitPrice.setDecription("Gia ban si 5 chai");
 			
 			unitPriceRepository.save(unitPrice);
+		}
+		
+		// PRODUCT_TYPE:
+		if(!productTypeRepository.exists("NHNA")) {
+			ProductType productType = new ProductType();
+			
+			productType.setProductTypeId("NHNA");
+			productType.setProductTypeName("Nước hoa Nam");
+			productType.setDecription("Các loại nước hoa Charme dành cho Nam giới");
+			
+			productTypeRepository.save(productType);
+		}
+		
+		if(productTypeRepository.findOne("NHNU") == null) {
+			ProductType productType = new ProductType();
+			
+			productType.setProductTypeId("NHNU");
+			productType.setProductTypeName("Nước hoa Nữ");
+			productType.setDecription("Các loại nước hoa Charme dành cho Nữ giới");
+			
+			productTypeRepository.save(productType);
 		}
 		
 		// PRODUCT:
@@ -139,7 +170,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			product.setProductName("So sexy 25ml");
 			List<UnitPrice> unitPrices = unitPriceRepository.findAll();
 			product.setUnitPrices(unitPrices);
-			ProductType productType = productTypeRepository.findByMaLoai("NAM");
+			ProductType productType = productTypeRepository.findOne("NHNU");
 			product.setProductType(productType);
 			
 			productRepository.save(product);

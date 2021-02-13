@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layout/main-layout-v1">
+<head>
+	<meta charset="UTF-8"/>
+    <title>Quản lý người dùng</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css"/>
+</head>
+<body>
+	<h3 layout:fragment="header"> QUẢN LÝ NGƯỜI DÙNG </h3>
+
+	<ol layout:fragment="link">
+		<li>
+            <a th:href="@{/admin}"><i class="glyphicon glyphicon-user"></i> Quản lý Người dùng</a>
+        </li>
+        <li>
+            <a th:href="@{/admin}"><i class="glyphicon glyphicon-edit"></i> Cập nhật thông tin Người dùng</a>
+        </li>
+	</ol>
+
+	<section layout:fragment="content">
+		<div th:if="${param.success}" class="alert alert-success fade in">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>Thành công!</strong> Tài khoản đã được cập nhật.
+		</div>
+		<h4>Cập nhật thông tin người dùng</h4>
+		<hr/>
+		<div class="row">
+		  	<div class="col-sm-2">
+		  		<img th:src="@{\img\photo.jpg.png}" alt="profile image" class="img-rounded img-responsive"/>
+		  	</div>
+		  	<div class="col-sm-7">
+		  		<div class="container-fluid">
+					<form class="form-horizontal" th:action="@{/update-user}" th:method="post"
+						  th:object="${user}">
+						<div class="form-group">
+						  	<label for="username" class="control-label col-sm-5"> Tài khoản: </label>
+						  	<div class="col-sm-7">
+						  		<input type="text" class="form-control disabled" id="username" th:field="*{username}" required="required" />
+						  	</div>
+						</div>
+						<div class="form-group">
+						  	<label for="password" class="control-label col-sm-5"> Mật khẩu: </label>
+						  	<div class="col-sm-7">
+						  		<input type="password" class="disabled" id="password" name="password" th:value="${user.password}" required="required" />
+								<span>
+									<a href="#" class="btn btn-default btn-xs">
+									 	<i class="glyphicon glyphicon-edit btn-edit"></i> Change
+								 	</a>
+								</span>
+						  	</div>
+						</div>
+						<div class="form-group">
+						  	<label for="fullName" class="control-label col-sm-5">
+								Họ tên: <span class="required">(*)</span>
+							</label>
+						  	<div class="col-sm-7">
+						  		<input type="text" class="form-control" id="fullName" th:field="*{userDetail.fullName}" required="required" />
+						  	</div>
+						</div>
+						<div class="form-group">
+						  	<label for="dob" class="control-label col-sm-5">
+								Ngày sinh: <span class="required">(*)</span>
+							</label>
+						  	<div class="col-sm-7">
+						  		<input type="date" class="form-control" id="dob" name="dob" th:value="${dob}" required="required"/>
+								<div class="help-block">Nhập theo định dạng: DD/MM/YYYY</div>
+						  	</div>
+						</div>
+						<div class="form-group">
+						  	<label for="sex" class="control-label col-sm-5">
+								Giới tính <span class="required">(*)</span>
+							</label>
+						  	<div class="col-sm-7">
+								<select class="form-control" name="sex" id="sex" th:field="*{userDetail.sex}" required="required">
+									<option th:value="Nam">Nam</option>
+									<option th:value="Nữ">Nữ</option>
+								</select>
+						  	</div>
+						</div>
+						<div class="form-group">
+						  	<label for="no" class="control-label col-sm-5">Số nhà:</label>
+						  	<div class="col-sm-7">
+							  	<input type="text" class="form-control" id="no" th:field="*{userDetail.address.no}"/>
+						  	</div>
+						</div>
+						<div class="form-group">
+						  	<label for="street" class="control-label col-sm-5">Đường:</label>
+						  	<div class="col-sm-7">
+							  	<input type="text" class="form-control" id="street" th:field="*{userDetail.address.street}"/>
+						  	</div>
+						</div>
+						<div class="form-group">
+						  	<label for="ward" class="control-label col-sm-5">Xã / Phường:</label>
+						  	<div class="col-sm-7">
+							  	<input type="text" class="form-control" id="ward" th:field="*{userDetail.address.ward}"/>
+						  	</div>
+						</div>
+						<div class="form-group">
+						  	<label for="district" class="control-label col-sm-5"> Huyện / Quận: <span class="required">(*)</span> </label>
+						  	<div class="col-sm-7">
+							  	<input type="text" class="form-control" id="district" th:field="*{userDetail.address.district}" required="required"/>
+						  	</div>
+						</div>
+						<div class="form-group">
+						  	<label for="city" class="control-label col-sm-5">
+								Tỉnh / Thành Phố: <span class="required">(*)</span>
+							</label>
+						  	<div class="col-sm-7">
+							  	<input type="text" class="form-control" id="city" th:field="*{userDetail.address.city}" required="required"/>
+						  	</div>
+						</div>
+						<div class="form-group">
+						  	<label for="phone" class="control-label col-sm-5">
+								Số điện thoại: <span class="required">(*)</span>
+							</label>
+						  	<div class="col-sm-7">
+						  		<input type="text" class="form-control" id="phone" th:field="*{userDetail.phone}" required="required" />
+						  	</div>
+						</div>
+						<div class="form-group">
+						  	<label for="email" class="control-label col-sm-5">
+								Địa chỉ email: <span class="required">(*)</span>
+							</label>
+						  	<div class="col-sm-7">
+						  		<input type="email" class="form-control" id="email" th:field="*{userDetail.email}" required="required" />
+						  	</div>
+						</div>
+						<div class="form-group">
+						    <div class="col-sm-offset-5 col-sm-7">
+						      	<button type="submit" class="btn btn-primary">Cập nhật</button>
+								<button type="reset" class="btn btn-warning" id="btnReset">Làm mới</button>
+						    </div>
+						</div>
+					</form>
+		  		</div>
+		  	</div>
+			<div class="col-sm-3">
+				<div class="panel panel-warning">
+				  	<div class="panel-heading">CHÚ THÍCH</div>
+				  	<div class="panel-body">
+				  		Text here
+				  	</div>
+				</div>
+			</div>
+		</div>
+
+		<span id="menuItem" class="hidden">#user</span>
+	</section>
+</body>
+</html>

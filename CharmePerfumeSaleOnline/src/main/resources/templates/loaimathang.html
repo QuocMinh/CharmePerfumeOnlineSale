@@ -4,113 +4,111 @@
 	  layout:decorator="layout/main-layout-v1">
 <head>
 	<meta charset="UTF-8"/>
-    <title>Danh sách các loại mặt hàng</title>
-	<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css"/>
-	
+    <title>Quản lý loại sản phẩm</title>
 </head>
 <body>
-	<h1 layout:fragment="header">
-		QUẢN LÝ LOẠI MẶT HÀNG
-	</h1>
+	<h3 layout:fragment="header">
+		QUẢN LÝ LOẠI SẢN PHẨM
+	</h3>
 
 	<ol layout:fragment="link">
 		<li>
             <a th:href="@{/list-product-type}">
-            	<i class="glyphicon glyphicon-barcode"></i> Quản lý loại mặt hàng
+            	<i class="glyphicon glyphicon-barcode"></i> Quản lý loại sản phẩm
             </a>
         </li>
 	</ol>
 
 	<section layout:fragment="content">
-		<div class="panel panel-primary">
-		  	<div class="panel-heading">DANH SÁCH LOẠI MẶT HÀNG</div>
-		  	<div class="panel-body">
-		  		<div class="table-responsive">
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th class="">#</th>
-								<th class="col-sm-1">Mã loại</th>
-								<th class="col-sm-3">Tên loại</th>
-								<th class="col-sm-6">Mô tả</th>
-								<th class="col-sm-2">Công cụ</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="loaiMH, int : ${loaiMHs}" th:id="${loaiMH.maLoai}"
-								class="clickable">
-								<td class="" th:text="${int.index + 1}"></td>
-								<td class="col-sm-1" th:text="${loaiMH.maLoai}"></td>
-								<td class="col-sm-3" th:text="${loaiMH.tenLoai}"></td>
-								<td class="col-sm-6" th:if="${loaiMH.moTa} == ''">(Không có mô tả)</td>
-								<td class="col-sm-6" th:if="${loaiMH.moTa} != ''" th:text="${loaiMH.moTa}"></td>
-								<td class="col-sm-2">
-									<a>Sửa</a> -
-									<a>Xóa</a>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="row">
-					<div class="form-group col-md-2">
-						<select class="form-control pagination" id="pageSizeSelect">
-							<option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
-									th:value="${pageSize}" th:selected="${pageSize} == ${selectedPageSize}">
-							</option>
-						</select>
-					</div>
-					<div th:if="${loaiMHs.totalPages >= 1}"
-						 class="form-group col-md-10 pagination-centered text-align-right">
-						<ul class="pagination">
-							<li th:class="${loaiMHs.number == 0} ? disabled">
-								<a class="pageLink" th:href="@{/list-product-type?(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
-							</li>
-							<li th:class="${loaiMHs.number == 0} ? disabled">
-								<a class="pageLink" th:href="@{/list-product-type?(pageSize=${selectedPageSize}, page=${loaiMHs.number})}">&larr;</a>
-							</li>
-							<li th:class="${loaiMHs.number == (page - 1)} ? 'active pointer-disabled'"
-								th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
-								<a class="pageLink" th:href="@{/list-product-type?(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a>
-							</li>
-							<li th:class="${loaiMHs.number + 1 == loaiMHs.totalPages} ? disabled">
-								<a class="pageLink" th:href="@{/list-product-type?(pageSize=${selectedPageSize}, page=${loaiMHs.number + 2})}">&rarr;</a>
-							</li>
-							<li th:class="${loaiMHs.number + 1 == loaiMHs.totalPages} ? disabled">
-								<a class="pageLink" th:href="@{/list-product-type?(pageSize=${selectedPageSize}, page=${loaiMHs.totalPages})}">&raquo;</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-		  	</div>
+		<div th:if="${param.success}" class="alert alert-success fade in">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>Thành công!</strong> Loại sản phẩm <b th:text="${param.success[0]}"></b> đã được tạo mới.
 		</div>
+		<div th:if="${param.deleted}" class="alert alert-success fade in">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>Thành công!</strong> Đã xóa Loại sản phẩm <b th:text="${param.deleted[0]}"></b>.
+		</div>
+		<div th:if="${param.error}" class="alert alert-danger fade in">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<strong>Lỗi!</strong> Loại sản phẩm <b th:text="${param.error[0]}"></b> đã tồn tại!
+		</div>
+		<h4>DANH SÁCH LOẠI MẶT HÀNG</h4>
+		<hr/>
+		<table class="table table-info table-striped table-bordered table-condensed">
+			<thead>
+				<tr>
+					<th class="">#</th>
+					<th class="col-sm-1">Mã loại</th>
+					<th class="col-sm-3">Tên loại</th>
+					<th class="col-sm-6">Mô tả</th>
+					<th class="col-sm-2">Công cụ</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="productType, int : ${productTypes}"
+					th:id="${productType.productTypeId}" class="clickable">
+					<td class="" th:text="${int.index + 1}"></td>
+					<td class="col-sm-1" th:text="${productType.productTypeId}"></td>
+					<td class="col-sm-3" th:text="${productType.productTypeName}"></td>
+					<td class="col-sm-6" th:if="${productType.decription} == ''"> (Không có mô tả)</td>
+					<td class="col-sm-6" th:if="${productType.decription} != ''" th:text="${productType.decription}"></td>
+					<td class="col-sm-2">
+						<a th:href="@{/update-product-type?id=} + ${productType.productTypeId}" class="btn btn-default btn-xs btn-edit">
+							<i class="glyphicon glyphicon-edit"></i>
+						</a> -
+						<a th:href="@{/delete-product-type?id=} + ${productType.productTypeId}" class="btn btn-default btn-xs btn-remove">
+							<i class="glyphicon glyphicon-remove"></i>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="row">
+			<div th:if="${productTypes.totalPages >= 1}" class="col-md-12 pagination-centered text-align-right">
+				<ul class="pagination">
+					<li th:class="${productTypes.number == 0} ? disabled">
+						<a class="pageLink" th:href="@{/list-product-type?(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+					</li>
+					<li th:class="${productTypes.number == 0} ? disabled">
+						<a class="pageLink" th:href="@{/list-product-type?(pageSize=${selectedPageSize}, page=${productTypes.number})}">&larr;</a>
+					</li>
+					<li th:class="${productTypes.number == (page - 1)} ? 'active pointer-disabled'"
+						th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+						<a class="pageLink" th:href="@{/list-product-type?(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a>
+					</li>
+					<li th:class="${productTypes.number + 1 == productTypes.totalPages} ? disabled">
+						<a class="pageLink" th:href="@{/list-product-type?(pageSize=${selectedPageSize}, page=${productTypes.number + 2})}">&rarr;</a>
+					</li>
+					<li th:class="${productTypes.number + 1 == productTypes.totalPages} ? disabled">
+						<a class="pageLink" th:href="@{/list-product-type?(pageSize=${selectedPageSize}, page=${productTypes.totalPages})}">&raquo;</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<hr/>
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="panel panel-success">
-				  	<div class="panel-heading">THÊM/CẬP NHẬT</div>
+				  	<div class="panel-heading">THÊM MỚI</div>
 				  	<div class="panel-body">
 				  		<div class="container-fluid">
-							<form th:action="@{/update-product-type}" class="form-horizontal"
-								  th:method="post" th:object="${loaiMHNew}">
+							<form th:action="@{/create-product-type}" class="form-horizontal"
+								  th:method="post" th:object="${newProductType}">
 								<div class="form-group">
-									<label for="maLoai">Mã Loại: <span class="required">(*)</span></label>
-									<input type="text" class="form-control" id="maLoai" required="required"
-										   th:field="*{maLoai}" placeholder="Mã loại gồm 4-6 ký tự"/>
+									<label for="productTypeId">Mã Loại: <span class="required">(*)</span></label>
+									<input type="text" class="form-control" id="productTypeId" required="required" th:field="*{productTypeId}" placeholder="Mã loại gồm 4-6 ký tự"/>
 								</div>
 								<div class="form-group">
-									<label for="tenLoai">Tên loại: <span class="required">(*)</span></label>
-									<input type="text" class="form-control" id="tenLoai" required="required"
-										   th:field="*{tenLoai}"/>
+									<label for="productTypeName">Tên loại: <span class="required">(*)</span></label>
+									<input type="text" class="form-control" id="productTypeName" required="required" th:field="*{productTypeName}"/>
 								</div>
 								<div class="form-group">
-									<label for="moTa">Mô tả:</label>
-									<textarea name="moTa" id="moTa" rows="4" class="form-control"
-											  th:field="*{moTa}"></textarea>
+									<label for="decription">Mô tả:</label>
+									<textarea name="decription" id="decription" rows="4" class="form-control" th:field="*{decription}"></textarea>
 								</div>
 								<div class="form-group text-right">
-									<button type="submit" class="btn btn-primary" id="btnUpdate">Cập nhật</button>
-									<button type="reset" class="btn btn-success" id="btnReset">Làm mới</button>
-									<a th:href="@{/delete-product-type}" class="btn btn-danger" id="btnDelete">Xóa</a>
+									<button type="submit" class="btn btn-primary" id="btnUpdate">Thêm mới</button>
+									<button type="reset" class="btn btn-warning" id="btnReset">Làm mới</button>
 								</div>
 							</form>
 						</div>
@@ -126,10 +124,11 @@
 				</div>
 			</div>
 		</div>
-		<p id="itemId">#product-type</p>
-		
+
 		<!-- Javascrip library -->
 		<script th:src="@{/js/loaimathang.js}" charset="utf-8"></script>
+
+		<span id="menuItem" class="hidden">#productType</span>
 	</section>
 </body>
 </html>

@@ -15,12 +15,13 @@ public class User implements Serializable {
 	@Id
 	private String username;
 	private String password;
-	
 	@DBRef
 	private List<Role> userRole;
+	private UserDetail userDetail;
 
 	public User() {
 		super();
+		userDetail = new UserDetail();
 	}
 
 	public User(String username, String password, List<Role> userRole) {
@@ -28,12 +29,14 @@ public class User implements Serializable {
 		this.username = username;
 		this.password = password;
 		this.userRole = userRole;
+		userDetail = new UserDetail();
 	}
 
 	public String getUsername() {
 		return username;
 	}
 
+	
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -54,10 +57,18 @@ public class User implements Serializable {
 		this.userRole = userRole;
 	}
 
+	public UserDetail getUserDetail() {
+		return userDetail;
+	}
+
+	public void setUserDetail(UserDetail userDetail) {
+		this.userDetail = userDetail;
+	}
+
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", password=" + password
-				+ ", userRole=" + userRole + "]";
+				+ ", userRole=" + userRole + ", userDetail=" + userDetail + "]";
 	}
 
 	@Override
@@ -66,6 +77,8 @@ public class User implements Serializable {
 		int result = 1;
 		result = prime * result
 				+ ((password == null) ? 0 : password.hashCode());
+		result = prime * result
+				+ ((userDetail == null) ? 0 : userDetail.hashCode());
 		result = prime * result
 				+ ((userRole == null) ? 0 : userRole.hashCode());
 		result = prime * result
@@ -86,6 +99,11 @@ public class User implements Serializable {
 			if (other.password != null)
 				return false;
 		} else if (!password.equals(other.password))
+			return false;
+		if (userDetail == null) {
+			if (other.userDetail != null)
+				return false;
+		} else if (!userDetail.equals(other.userDetail))
 			return false;
 		if (userRole == null) {
 			if (other.userRole != null)

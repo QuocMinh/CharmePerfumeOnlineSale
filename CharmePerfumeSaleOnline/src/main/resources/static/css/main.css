@@ -38,3 +38,27 @@
 #itemId {
 	display: none;
 }
+.btn-edit {
+	color: green;
+}
+.btn-remove {
+	color: #ca0000;
+}
+.btn-view {
+	color: #006bd7;
+}
+.userInfo {
+	
+}
+.table-info tr td, .table-info tr th {
+	font-size: 13px;
+}
+table.table-info thead tr th {
+	background-color: #337ab7;
+	color: white
+}
+.form-group {
+	margin-bottom: 10px;
+}
+
+

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layout/main-layout-v1">
+<head>
+	<meta charset="UTF-8"/>
+    <title>Quản lý người dùng</title>
+	<link rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css"/>
+</head>
+<body>
+	<h3 layout:fragment="header">
+		QUẢN LÝ NGƯỜI DÙNG
+	</h3>
+
+	<ol layout:fragment="link">
+		<li>
+            <a th:href="@{/admin}"><i class="glyphicon glyphicon-user"></i> Quản lý Người dùng</a>
+        </li>
+        <li>
+            <a href="#"><i class="glyphicon glyphicon-eye-open"></i> Thông tin Người dùng</a>
+        </li>
+	</ol>
+
+	<section layout:fragment="content">
+		<h4>Thông tin người dùng</h4>
+		<hr/>
+		<div class="row">
+		  	<div class="col-sm-2">
+		  		<img th:src="@{\img\photo.jpg.png}" alt="profile image" class="img-rounded img-responsive"/>
+		  	</div>
+		  	<div class="col-sm-10">
+				<table class="table table-striped">
+					<tr>
+						<td><b>Họ tên:</b></td>
+						<td><span th:text="${user.userDetail.fullName}">Chau Quoc Minh</span></td>
+					</tr>
+					<tr>
+						<td><b>Ngày sinh:</b></td>
+						<td><span th:text="${user.userDetail.dob}">28/10/1995</span></td>
+					</tr>
+					<tr>
+						<td><b>Giới tính:</b></td>
+						<td><span th:text="${user.userDetail.sex}">Nam</span></td>
+					</tr>
+					<tr>
+						<td><b>Địa chỉ:</b></td>
+						<td><span th:text="${#strings.toString(user.userDetail.address)}">xxxx</span></td>
+					</tr>
+					<tr>
+						<td><b>Số điện thoại:</b></td>
+						<td><span th:text="${user.userDetail.phone}">0123 94 96 986</span></td>
+					</tr>
+					<tr>
+						<td><b>Địa chỉ Email:</b></td>
+						<td><span th:text="${user.userDetail.email}">cqminh1995@gmail.com</span></td>
+					</tr>
+					<tr>
+						<td><b>Tài khoản:</b></td>
+						<td><span th:text="${user.username}">cqminh1995</span></td>
+					</tr>
+					<tr>
+						<td><b>Mật khẩu:</b></td>
+						<td>
+							<span>******</span>
+							<a href="#" class="btn btn-default btn-xs">
+								<i class="glyphicon glyphicon-edit btn-edit"></i> Change
+							</a>
+						</td>
+					</tr>
+				</table>
+				<a th:href="@{/update-user?username=} + ${user.username}" class="btn btn-default">
+					<i class="glyphicon glyphicon-edit btn-edit"></i> Cập nhật</a>
+				<a th:href="@{/delete-user?username=} + ${user.username}"  class="btn btn-default">
+					<i class="glyphicon glyphicon-remove btn-remove"></i> Xóa</a>
+		  	</div>
+		</div>
+
+		<span id="menuItem" class="hidden">#user</span>
+	</section>
+</body>
+</html>
